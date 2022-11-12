@@ -31,6 +31,7 @@ class SignUp_Activity : AppCompatActivity() {
     lateinit var errorName: TextInputLayout
     lateinit var errorEmail: TextInputLayout
     lateinit var errorPassword: TextInputLayout
+    lateinit var backToLoginButton : Button
 
 
 
@@ -43,22 +44,33 @@ class SignUp_Activity : AppCompatActivity() {
         supportActionBar?.hide()
 
         SignupButton =findViewById(R.id.Sign_up)
+        backToLoginButton = findViewById(R.id.back_to_login_button)
+
         name =findViewById(R.id.name)
         email = findViewById(R.id.EmailText)
         password = findViewById(R.id.PasswordText)
 
         errorName=findViewById(R.id.ParentNameTextField)
         errorEmail=findViewById(R.id.EmailTextField)
+        errorPassword=findViewById(R.id.PasswordInputText)
+
 
 
         SignupButton.setOnClickListener { signUp() }
+
+        backToLoginButton.setOnClickListener {
+            val intent = Intent(this, Login_Activity::class.java)
+            startActivity(intent)
+        }
+
     }
+
     //add user to database
     private fun signUp()
     {
         if (validate())
         {
-            val user = User(name.text.toString(), email.text.toString(), password.text.toString())
+            val user = User(email.text.toString(), password.text.toString(),name.text.toString())
             services.signup(user).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {

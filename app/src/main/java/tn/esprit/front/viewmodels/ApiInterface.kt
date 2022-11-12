@@ -13,7 +13,6 @@ interface ApiInterface {
     @POST("/user/login")
     fun login(@Body user: User):Call<User>
     @POST("/user/signup")
-    //sign up with 3 arguments
     fun signup(@Body user: User):Call<User>
     @POST("/user/patchOnce")
     fun updatePassword (@Body map: HashMap<String ,String>):Call<User>

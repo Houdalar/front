@@ -26,10 +26,14 @@ class Login_Activity : AppCompatActivity() {
     lateinit var mailError: TextInputLayout
     lateinit var password: EditText
     lateinit var passwordError: TextInputLayout
-    lateinit var loginButton: Button
-    lateinit var rememberMe: CheckBox
+
     lateinit var forgotYourPassword : TextView
+    lateinit var rememberMe: CheckBox
+
     lateinit var preference : SharedPreferences
+
+    lateinit var backToSignUpButton : Button
+    lateinit var loginButton: Button
 
     var services = ApiInterface.create()
 
@@ -41,26 +45,27 @@ class Login_Activity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        email = findViewById<EditText>(R.id.txtEmail)
-        mailError = findViewById<TextInputLayout>(R.id.txtLayoutEmail)
-        password = findViewById<EditText>(R.id.txtPassword)
-        passwordError = findViewById<TextInputLayout>(R.id.txtLayoutPassword)
+        email = findViewById(R.id.txtEmail)
+        mailError = findViewById(R.id.txtLayoutEmail)
+        password = findViewById(R.id.txtPassword)
+        passwordError = findViewById(R.id.txtLayoutPassword)
 
-        loginButton = findViewById<Button>(R.id.login_button)
-        rememberMe = findViewById<CheckBox>(R.id.Remember_Me)
+        loginButton = findViewById(R.id.login_button)
+        backToSignUpButton = findViewById(R.id.back_to_sign_up_button)
+        rememberMe = findViewById(R.id.Remember_Me)
 
         forgotYourPassword = findViewById(R.id.forgot_password)
 
         preference=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-        if (rememberMe.isChecked)
-        {
-            val editor = preference.edit()
-            editor.putBoolean(IS_REMEMBRED, true)
-            editor.apply()
-        }
-        val intent = Intent(this@Login_Activity, Home::class.java)
-        startActivity(intent)
+//        if (rememberMe.isChecked)
+//        {
+//            val editor = preference.edit()
+//            editor.putBoolean(IS_REMEMBRED, true)
+//            editor.apply()
+//        }
+//        val intent = Intent(this@Login_Activity, Home::class.java)
+//        startActivity(intent)
 
 
 
@@ -69,8 +74,13 @@ class Login_Activity : AppCompatActivity() {
             clickLogin()
         }
 
+        backToSignUpButton.setOnClickListener()
+        {
+            val intent = Intent(this@Login_Activity, SignUp_Activity::class.java)
+            startActivity(intent)
+        }
+
     }
-    //login and verify mail and password
     private fun clickLogin()
     {
         if (validate())
@@ -80,6 +90,15 @@ class Login_Activity : AppCompatActivity() {
             {
                 override fun onResponse(call: Call<User>, response: Response<User>)
                 {
+                    if (rememberMe.isChecked)
+                    {
+                        val editor = preference.edit()
+                        editor.putBoolean(IS_REMEMBRED, true)
+                        editor.apply()
+                        val intent = Intent(this@Login_Activity, Home::class.java)
+                        startActivity(intent)
+                    }
+
                     if (response.isSuccessful)
                     {
                         val intent = Intent(this@Login_Activity, Home::class.java)
