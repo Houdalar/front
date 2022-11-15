@@ -6,8 +6,12 @@ data class User(
     @SerializedName("email")
     var email: String,
     @SerializedName("password")
-    var password: String,
+    var password: String? = null,
     @SerializedName("name")
     var name: String? = null,
+    @SerializedName("status")
+    var status: String? = null,
+    @SerializedName("token")
+    var token: String? = null,
 
 )

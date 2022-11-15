@@ -1,11 +1,11 @@
 package tn.esprit.front.Ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 
 import android.util.Patterns
-import android.view.WindowManager
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +22,7 @@ import tn.esprit.front.viewmodels.ApiInterface
 class SignUp_Activity : AppCompatActivity() {
 
     var services = ApiInterface.create()
+    lateinit var preference : SharedPreferences
 
 
     lateinit var name: TextInputEditText
@@ -54,6 +55,8 @@ class SignUp_Activity : AppCompatActivity() {
         errorEmail=findViewById(R.id.EmailTextField)
         errorPassword=findViewById(R.id.PasswordInputText)
 
+        preference=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+
 
 
         SignupButton.setOnClickListener { signUp() }
@@ -64,6 +67,7 @@ class SignUp_Activity : AppCompatActivity() {
         }
 
     }
+
 
     //add user to database
     private fun signUp()
@@ -79,7 +83,12 @@ class SignUp_Activity : AppCompatActivity() {
                             "User added successfully",
                             Toast.LENGTH_SHORT
                         ).show()
-                        val intent = Intent(this@SignUp_Activity, Login_Activity::class.java)
+                        val editor = preference.edit()
+                        editor.putString("email", email.text.toString())
+                        editor.putString("password", password.text.toString())
+                        editor.putString("name", name.text.toString())
+                        editor.apply()
+                        val intent = Intent(this@SignUp_Activity, Account_verification_Activity::class.java)
                         startActivity(intent)
                     }
                     else
@@ -140,4 +149,5 @@ class SignUp_Activity : AppCompatActivity() {
         return true
     }
 }
+
 

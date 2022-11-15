@@ -11,3 +11,5 @@ class Home : AppCompatActivity()
         setContentView(R.layout.home)
     }
 }
+//activate the user account by clicking on the link sent to his email address
+

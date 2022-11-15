@@ -58,14 +58,11 @@ class Login_Activity : AppCompatActivity() {
 
         preference=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-//        if (rememberMe.isChecked)
-//        {
-//            val editor = preference.edit()
-//            editor.putBoolean(IS_REMEMBRED, true)
-//            editor.apply()
-//        }
-//        val intent = Intent(this@Login_Activity, Home::class.java)
-//        startActivity(intent)
+         if (IS_REMEMBRED== "true")
+        {
+            val intent = Intent(this@Login_Activity, Home::class.java)
+            startActivity(intent)
+        }
 
 
 
@@ -80,6 +77,12 @@ class Login_Activity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        forgotYourPassword.setOnClickListener()
+        {
+//            val intent = Intent(this@Login_Activity, ForgotPassword::class.java)
+//            startActivity(intent)
+        }
+
     }
     private fun clickLogin()
     {
@@ -90,30 +93,38 @@ class Login_Activity : AppCompatActivity() {
             {
                 override fun onResponse(call: Call<User>, response: Response<User>)
                 {
-                    if (rememberMe.isChecked)
-                    {
-                        val editor = preference.edit()
-                        editor.putBoolean(IS_REMEMBRED, true)
-                        editor.apply()
-                        val intent = Intent(this@Login_Activity, Home::class.java)
-                        startActivity(intent)
-                    }
 
                     if (response.isSuccessful)
                     {
+                        if (rememberMe.isChecked)
+                        {
+                            val editor = preference.edit()
+                            editor.putBoolean(IS_REMEMBRED, true)
+                            editor.apply()
+                        }
+
                         val intent = Intent(this@Login_Activity, Home::class.java)
                         startActivity(intent)
                         finish()
                     }
+                    else if(response.code() == 400)
+                    {
+                        Toast.makeText(this@Login_Activity, "Wrong password", Toast.LENGTH_SHORT).show()
+                    }
+                    else if (response.code() ==402)
+                    {
+                        Toast.makeText(this@Login_Activity, "Your Email has not been verified. Please check your mail", Toast.LENGTH_SHORT).show()
+                    }
                     else
                     {
-                        Toast.makeText(this@Login_Activity, "Invalid email or password", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Login_Activity, "The email address is not associated with any account. please check and try again!", Toast.LENGTH_SHORT).show()
                     }
+
                 }
 
                 override fun onFailure(call: Call<User>, t: Throwable)
                 {
-                    Log.d("Error", t.message.toString())
+                    Log.d("something went wrong ", t.message.toString())
                 }
             })
         }
