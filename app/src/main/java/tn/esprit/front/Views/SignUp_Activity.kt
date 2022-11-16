@@ -1,4 +1,4 @@
-package tn.esprit.front.Ui
+package tn.esprit.front.Views
 
 import android.content.Context
 import android.content.Intent

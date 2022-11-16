@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ui.Login_Activity">
+    tools:context=".Views.Login_Activity">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -114,7 +114,7 @@
             android:layout_marginTop="420dp"
             android:background="@drawable/login_button"
             android:gravity="center"
-            android:text="Back to sign up" />
+            android:text="Sign up" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtLayoutPassword"

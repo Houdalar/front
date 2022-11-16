@@ -1,4 +1,4 @@
-package tn.esprit.front.Ui
+package tn.esprit.front.Views
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.WindowManager
 import android.widget.*
 import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
