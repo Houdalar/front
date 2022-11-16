@@ -1,4 +1,4 @@
-package tn.esprit.front.Ui
+package tn.esprit.front.Views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

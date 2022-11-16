@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -15,38 +16,14 @@
         android:theme="@style/Theme.Front"
         tools:targetApi="31">
         <activity
-            android:name=".Ui.Account_verification_Activity"
-            android:exported="true">
-<!--            <intent-filter android:autoVerify="true">-->
-<!--                <action android:name="android.intent.action.VIEW"/>-->
-<!--                <category android:name="android.intent.category.DEFAULT"/>-->
-<!--                <category android:name="android.intent.category.BROWSABLE"/>-->
-
-<!--                <data android:scheme="http" />-->
-<!--                <data android:scheme="https" />-->
-
-<!--                <data android:host="http://192.168.1.16:8080" />-->
-<!--            </intent-filter>-->
+            android:name=".AddBaby1Activity"
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Ui.SignUp_Activity"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Ui.Home"
-            android:exported="true">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".Ui.Login_Activity"
+            android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,6 +31,47 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Views.Account_verification_Activity"
+            android:exported="true">
+
+            <!-- <intent-filter android:autoVerify="true"> -->
+            <!-- <action android:name="android.intent.action.VIEW"/> -->
+            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
+            <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
+
+
+            <!-- <data android:scheme="http" /> -->
+            <!-- <data android:scheme="https" /> -->
+
+
+            <!-- <data android:host="http://192.168.1.16:8080" /> -->
+            <!-- </intent-filter> -->
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Views.SignUp_Activity"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Views.Home"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Views.Login_Activity"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

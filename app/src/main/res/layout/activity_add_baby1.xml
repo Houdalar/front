@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddBaby1Activity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_gravity="center"
+            android:text="Let us know about your baby"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baby's Name"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="25dp"
+            android:gravity="left" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/BabyNameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Baby's Name"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            app:errorEnabled="true"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/BabyName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Baby's Birthday"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="25dp"
+            android:gravity="left" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/BirthdayLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Baby's Birthday"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            app:errorEnabled="true"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/BabyBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text|number"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginStart="25dp"
+            android:gravity="left" />
+
+       <!-- <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:weightSum="2">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/GirlBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="10dp"
+                android:text="Girl"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/BoyBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="10dp"
+                android:text="Boy" />
+        </LinearLayout>-->
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:gravity="center"
+            >
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/rbGirl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="Girl"/>
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/rbBoy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Boy"/>
+        </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/Nextbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginEnd="100dp"
+            android:text="Next"
+            />
+
+
+    </LinearLayout>
+
+
+
+</ScrollView>
