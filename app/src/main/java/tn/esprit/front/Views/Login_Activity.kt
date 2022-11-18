@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import android.widget.EditText
+import tn.esprit.front.Views.Home.HomeActivity
 import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,7 +60,7 @@ class Login_Activity : AppCompatActivity() {
 
          if (IS_REMEMBRED== "true")
         {
-            val intent = Intent(this@Login_Activity, Home::class.java)
+            val intent = Intent(this@Login_Activity, HomeActivity::class.java)
             startActivity(intent)
         }
 
@@ -102,7 +103,7 @@ class Login_Activity : AppCompatActivity() {
                             editor.apply()
                         }
 
-                        val intent = Intent(this@Login_Activity, Home::class.java)
+                        val intent = Intent(this@Login_Activity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }

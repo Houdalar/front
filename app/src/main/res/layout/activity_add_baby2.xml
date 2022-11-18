@@ -4,29 +4,45 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".AddBaby1Activity">
+    android:background="@drawable/gradient_splash"
+    android:id="@+id/scrollViewAddBaby"
+    tools:context=".Views.AddBabyActivity">
+
     <LinearLayout
+        android:id="@+id/linearLayout"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        tools:context=".Views.Fragments.NewBabyFragments.AddBaby1Fragment">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:layout_gravity="center"
             android:text="Let us know about your baby"
             android:textSize="25sp"
+            android:textColor="@color/SecondaryColor"
             android:textStyle="bold"
             />
+
+        <ImageView
+            android:id="@+id/AddBabyPic"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/add_a_photo_48px"
+            android:layout_gravity="center"/>
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Baby's Name"
-            android:layout_marginTop="50dp"
-            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/SecondaryColorDark"
             android:textSize="16sp"
             android:layout_marginStart="25dp"
             android:gravity="left" />
@@ -46,6 +62,7 @@
                 android:id="@+id/BabyName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -54,8 +71,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Baby's Birthday"
-            android:layout_marginTop="50dp"
-            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/SecondaryColorDark"
             android:textSize="16sp"
             android:layout_marginStart="25dp"
             android:gravity="left" />
@@ -74,6 +92,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/BabyBirthday"
                 android:layout_width="match_parent"
+                android:background="@color/white"
                 android:layout_height="match_parent"
                 android:inputType="text|number"/>
 
@@ -82,74 +101,81 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Gender"
-            android:layout_marginTop="30dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/SecondaryColorDark"
+            android:textStyle="bold"
             android:textSize="16sp"
             android:layout_marginStart="25dp"
             android:gravity="left" />
 
-       <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:weightSum="2">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/GirlBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="25dp"
-                android:layout_marginEnd="10dp"
-                android:text="Girl"/>
+        <!-- <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal"
+             android:layout_marginTop="5dp"
+             android:weightSum="2">
+             <com.google.android.material.button.MaterialButton
+                 android:id="@+id/GirlBtn"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:layout_marginStart="25dp"
+                 android:layout_marginEnd="10dp"
+                 android:text="Girl"/>
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/BoyBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="25dp"
-                android:layout_marginStart="10dp"
-                android:text="Boy" />
-        </LinearLayout>-->
+             <com.google.android.material.button.MaterialButton
+                 android:id="@+id/BoyBtn"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:layout_marginEnd="25dp"
+                 android:layout_marginStart="10dp"
+                 android:text="Boy" />
+         </LinearLayout>-->
+
 
         <RadioGroup
+            android:id="@+id/genre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="65dp"
             android:gravity="center"
-            >
-            <com.google.android.material.radiobutton.MaterialRadioButton
+            android:background="@drawable/background_border"
+            android:orientation="horizontal">
+
+            <RadioButton
                 android:id="@+id/rbGirl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:text="Girl"/>
-            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:layout_margin="10dp"
+                android:buttonTint="@color/black"
+                android:checked="true"
+                android:text="Girl"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <RadioButton
                 android:id="@+id/rbBoy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Boy"/>
+                android:layout_margin="10dp"
+                android:buttonTint="@color/black"
+                android:text="Boy"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
         </RadioGroup>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/Nextbtn"
-            android:layout_width="match_parent"
+            android:id="@+id/startBtn"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginEnd="100dp"
-            android:text="Next"
-            />
-
-
+            android:layout_marginTop="18dp"
+            android:layout_gravity="center"
+            android:text="Let's Start"
+            android:backgroundTint="@color/SecondaryColor"/>
     </LinearLayout>
-
-
 
 </ScrollView>

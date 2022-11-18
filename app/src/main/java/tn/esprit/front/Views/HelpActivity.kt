@@ -1,11 +1,12 @@
-package tn.esprit.front
+package tn.esprit.front.Views
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import tn.esprit.front.R
 
-class AddBaby1Activity : AppCompatActivity() {
+class HelpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_baby1)
+        setContentView(R.layout.activity_help)
     }
 }

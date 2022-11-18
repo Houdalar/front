@@ -13,5 +13,7 @@ data class User(
     var status: String? = null,
     @SerializedName("token")
     var token: String? = null,
+    @SerializedName("baby")
+    var baby:Baby?=null
 
 )

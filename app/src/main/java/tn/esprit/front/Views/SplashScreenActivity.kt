@@ -1,11 +1,12 @@
-package tn.esprit.front
+package tn.esprit.front.Views
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import tn.esprit.front.Views.Login_Activity
+import tn.esprit.front.R
+import tn.esprit.front.Views.Home.HomeActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +15,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         Handler(Looper.getMainLooper()).postDelayed({
-            val mainIntent= Intent(this,Login_Activity::class.java)
+            val mainIntent= Intent(this,AddBabyActivity::class.java)
             startActivity(mainIntent)
             finish()
         },3500)
