@@ -42,7 +42,10 @@ class Account_verification_Activity : AppCompatActivity() {
         }
 
         resendEmail.setOnClickListener {
-           resendEmail()
+            if (validate())
+            {
+                resendEmail()
+            }
         }
 
 
@@ -109,7 +112,7 @@ class Account_verification_Activity : AppCompatActivity() {
         codeError?.error =null
         if (code.toString().isEmpty())
         {
-            codeError?.error = "Please enter your code"
+            codeError?.error = "Please enter the verification code"
             return false
         }
 
