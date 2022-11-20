@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import tn.esprit.front.R
+import tn.esprit.front.Views.Home.DrawerActivity
 import tn.esprit.front.Views.Home.HomeActivity
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -15,7 +16,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         Handler(Looper.getMainLooper()).postDelayed({
-            val mainIntent= Intent(this,AddBabyActivity::class.java)
+            val mainIntent= Intent(this,DrawerActivity::class.java)
             startActivity(mainIntent)
             finish()
         },3500)

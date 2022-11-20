@@ -9,6 +9,7 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
@@ -24,7 +25,6 @@ class SignUp_Activity : AppCompatActivity() {
     var services = ApiInterface.create()
     lateinit var preference : SharedPreferences
 
-
     lateinit var name: TextInputEditText
     lateinit var email: TextInputEditText
     lateinit var password: TextInputEditText
@@ -35,9 +35,7 @@ class SignUp_Activity : AppCompatActivity() {
     lateinit var backToLoginButton : Button
 
 
-
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
+    override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_up_screen)
@@ -57,15 +55,11 @@ class SignUp_Activity : AppCompatActivity() {
 
         preference=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-
-
         SignupButton.setOnClickListener { signUp() }
-
         backToLoginButton.setOnClickListener {
             val intent = Intent(this, Login_Activity::class.java)
             startActivity(intent)
         }
-
     }
 
 
@@ -102,8 +96,13 @@ class SignUp_Activity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<User>, t: Throwable)
-                {
-                    Toast.makeText(this@SignUp_Activity, "Error", Toast.LENGTH_SHORT).show()
+                {t.message?.let {
+                    Snackbar.make(
+                        findViewById(R.id.SignUpXML),
+                        it,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
                 }
             })
         }

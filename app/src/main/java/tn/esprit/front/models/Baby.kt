@@ -2,6 +2,7 @@ package tn.esprit.front.models
 
 import android.provider.ContactsContract.CommonDataKinds.Email
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName
 
 data class Baby(
@@ -9,8 +10,8 @@ data class Baby(
     var name:String?=null,
     @SerializedName("birthday")
     var birthday: String?=null,
-    @SerializedName("babyPic")
-    var babyPic: String?=null,
+    @DrawableRes
+    var babyPic: Int?=null,
     var email:String?=null
 
 )

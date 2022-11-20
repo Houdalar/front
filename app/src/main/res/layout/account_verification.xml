@@ -14,7 +14,7 @@
             android:layout_width="380dp"
             android:layout_height="134dp"
             android:layout_marginTop="44dp"
-            android:text="please enter the code we sended to  your email to activate the account"
+            android:text="please enter the code we sent to  your email to activate the account"
             android:textSize="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

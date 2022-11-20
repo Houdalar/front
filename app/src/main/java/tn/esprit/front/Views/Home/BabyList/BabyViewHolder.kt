@@ -8,10 +8,9 @@ import tn.esprit.front.R
 
 class BabyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
     val babyPic:ImageView
-    val babyName:TextView
+    val babyName:TextView=itemView.findViewById(R.id.itemName)
 
     init {
         babyPic=itemView.findViewById(R.id.itemPic)
-        babyName=itemView.findViewById(R.id.itemName)
     }
 }

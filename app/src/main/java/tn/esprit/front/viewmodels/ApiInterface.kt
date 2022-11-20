@@ -30,25 +30,31 @@ interface ApiInterface {
     @POST("/user/addBaby")
     fun addBaby(@Body baby: Baby) : Call<User>
 
+    @POST("user/getbabylist")
+    fun getBabyList(@Body user: User) :Call<User>
+
     @GET("/user/getBaby")
     fun getBaby(@Body baby:Baby):Call<User>
 
     @GET("/user/getBabyByName")
     fun getBabyByName(@Body baby: Baby):Call<User>
 
-    @POST("user/getbabylist")
-    fun getBabyList(@Body user: User) :Call<User>
+
 
     companion object {
 
         fun create() : ApiInterface {
 
+            println("ApiInterface")
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("http://192.168.1.19:8080")
                 .build()
 
+
             return retrofit.create(ApiInterface::class.java)
         }
     }
 }
+
+// "http://192.168.1.19:8080

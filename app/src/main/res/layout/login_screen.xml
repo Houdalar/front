@@ -4,20 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_splash"
     tools:context=".Views.Login_Activity">
-<RelativeLayout
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="100dp"
+        android:text="Welcome Back"
+        android:textColor="@color/SecondaryColorDark"
+        android:textStyle="bold"
+        android:textSize="30sp" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtLayoutEmail"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="85dp"
+        app:counterEnabled="true"
+        app:counterMaxLength="30"
+        android:gravity="center"
+        android:hint="Email Address"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtEmail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_text"
+            android:inputType="textEmailAddress"
+
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txtLayoutPassword"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:hint="Password"
+        app:errorEnabled="true"
+        android:gravity="center">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_text"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/Remember_Me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:shadowColor="@color/white"
+            android:text="Remember Me"
+            android:textColor="@color/SecondaryColor"
+
+            />
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:text="Forgot your password?"
+            android:textColor="@color/SecondaryColor" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="218dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="100dp"
+
+        android:background="@drawable/login_button"
+        android:gravity="center"
+        android:text="Sign in" />
+    <Button
+        android:id="@+id/back_to_sign_up_button"
+        android:layout_width="218dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/login_button"
+        android:gravity="center"
+        android:text="Sign up" />
+
+    <!--<TextView
+        android:id="@+id/How_was_your_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="63dp"
+        android:text="How was your day?"
+        android:textColor="@color/white"
+        android:textSize="20dp" />-->
+
+
+
+
+ <!--   <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/background"
         android:adjustViewBounds="true"
-         />
+         />-->
 
-    <TextView
+<!--    <TextView
         android:id="@+id/sign_in_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,137 +138,35 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
         android:textColor="@color/white"
-        android:textSize="30dp" />
+        android:textSize="30dp" />-->
 
 
-    <ImageView
+<!--    <ImageView
         android:id="@+id/imageView3"
         android:layout_width="154dp"
         android:layout_height="63dp"
         android:layout_marginStart="110dp"
-        android:src="@drawable/ic_baseline_more_horiz_24" />
+        android:src="@drawable/ic_baseline_more_horiz_24" />-->
 
 
-    <RelativeLayout
+<!--    <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/login_bar">
-
-        <TextView
-            android:id="@+id/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="25dp"
-            android:text="Welcome Back"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/How_was_your_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="63dp"
-            android:text="How was your day?"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="290dp"
-            android:text="Forgot your password?"
-            android:textColor="@color/white" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtLayoutEmail"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="130dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            android:gravity="center"
-            android:hint="mail address"
-            app:errorEnabled="true">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtEmail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/login_text"
-                android:inputType="textEmailAddress"
-
-                />
+        android:adjustViewBounds="true">
 
 
-        </com.google.android.material.textfield.TextInputLayout>
+    </RelativeLayout>-->
 
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="218dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="340dp"
-            android:background="@drawable/login_button"
-            android:gravity="center"
-            android:text="Sign in" />
-        <Button
-            android:id="@+id/back_to_sign_up_button"
-            android:layout_width="218dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="420dp"
-            android:background="@drawable/login_button"
-            android:gravity="center"
-            android:text="Sign up" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtLayoutPassword"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="215dp"
-            android:hint="Password"
-            app:errorEnabled="true"
-            android:gravity="center">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtPassword"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/login_text"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <CheckBox
-            android:id="@+id/Remember_Me"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="278dp"
-            android:shadowColor="@color/white"
-            android:text="Remember Me"
-            android:textColor="@color/white"
-
-            />
-    </RelativeLayout>
-
-    <ImageView
+<!--    <ImageView
         android:id="@+id/imageView5"
         android:layout_width="186dp"
         android:layout_height="180dp"
         android:src="@drawable/removal_354"
         android:foregroundGravity="center"
         android:layout_marginTop="110dp"
-        android:layout_marginStart="100dp"/>
+        android:layout_marginStart="100dp"/>-->
 
-</RelativeLayout>
+</LinearLayout>
 </ScrollView>

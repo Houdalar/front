@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import tn.esprit.front.Views.Home.HomeActivity
+import tn.esprit.front.Views.Home.DrawerActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
@@ -56,7 +56,7 @@ class AddBabyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_baby2)
 
-        supportActionBar?.hide()
+        /*supportActionBar?.hide()
 
         babyName=findViewById(R.id.BabyName)
         birthday=findViewById(R.id.BabyBirthday)
@@ -81,27 +81,34 @@ class AddBabyActivity : AppCompatActivity() {
         startBtn.setOnClickListener {
            addBaby()
         }
+*/
 
+    }}
 
-    }
-
-    private fun addBaby() {
+    /*private fun addBaby() {
         if (validate()){
             val email = mSharedPreferences.getString("email", "")
-            val baby=Baby(babyName.text.toString(), birthday.text.toString(), selectedImageUri.toString(), email.toString())
+            println(email.toString())
+            val baby=Baby(babyName.text.toString(), birthday.text.toString(), selectedImageUri.toString(), "inessaid1905@gmail.com")
+            println(email.toString())
+            println(babyName.text.toString())
+            println(birthday.text.toString())
+            println(selectedImageUri.toString())
             services.addBaby(baby).enqueue(object: Callback<User>{
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful){
+                        println(response.message())
                         Snackbar.make(
                             findViewById(R.id.scrollViewAddBaby),
                             getString(R.string.babyAddedSuccessfully),
                             Snackbar.LENGTH_SHORT
                         ).show()
-                        val intent = Intent(this@AddBabyActivity, HomeActivity::class.java)
+                        val intent = Intent(this@AddBabyActivity, DrawerActivity::class.java)
                         startActivity(intent)
                     }
                     else
                     {
+                        println( response.message())
                         Snackbar.make(
                             findViewById(R.id.scrollViewAddBaby),
                             getString(R.string.babyAddedFailure),
@@ -112,11 +119,13 @@ class AddBabyActivity : AppCompatActivity() {
                     }
 
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    Snackbar.make(
-                        findViewById(R.id.scrollViewAddBaby),
-                        getString(R.string.babyAddError),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    t.message?.let {
+                        Snackbar.make(
+                            findViewById(R.id.scrollViewAddBaby),
+                            it,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             })
         }
@@ -159,5 +168,4 @@ class AddBabyActivity : AppCompatActivity() {
             return false
         }
         return true
-    }
-}
+    }*/

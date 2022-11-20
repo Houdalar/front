@@ -87,7 +87,7 @@ class Account_verification_Activity : AppCompatActivity() {
                         "Account verified",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val intent = Intent(this@Account_verification_Activity, Login_Activity::class.java)
+                    val intent = Intent(this@Account_verification_Activity, AddBabyActivity::class.java)
                     startActivity(intent)
                 } else {
                     Toast.makeText(this@Account_verification_Activity, "please verify the code", Toast.LENGTH_SHORT)

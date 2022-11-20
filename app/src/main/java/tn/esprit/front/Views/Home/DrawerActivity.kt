@@ -5,14 +5,13 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.home.*
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_drawer.*
 import org.json.JSONArray
 import org.json.JSONTokener
 import retrofit2.Call
@@ -25,7 +24,7 @@ import tn.esprit.front.models.Baby
 import tn.esprit.front.models.User
 import tn.esprit.front.viewmodels.ApiInterface
 
-class HomeActivity : AppCompatActivity() {
+class DrawerActivity : AppCompatActivity() {
     var services = ApiInterface.create()
 
     lateinit var recyclerBaby: RecyclerView
@@ -36,12 +35,62 @@ class HomeActivity : AppCompatActivity() {
 
         mSharedPreferences=getSharedPreferences("PREF_NAME", MODE_PRIVATE)
         val userEmail=mSharedPreferences.getString("email","")
-        val user=User(email = userEmail.toString())
+        val user= User(email = userEmail.toString())
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.home)
+        setContentView(R.layout.activity_drawer)
 
         recyclerBaby=findViewById(R.id.recyclerView)
+
+        var babyList:MutableList<Baby> = ArrayList()
+
+        babyList.add(Baby("test 1","20/11/2022",R.drawable.ines,"inessaid1905@gmail.com"))
+        babyList.add(Baby("test 2","20/11/2022",R.drawable.gradient_splash,"inessaid1905@gmail.com"))
+        babyList.add(Baby("test 3","20/11/2022",R.drawable.ines,"inessaid1905@gmail.com"))
+
+        /* services.getBabyList(user).enqueue(object : Callback<User> {
+             override fun onResponse(call: Call<User>, response: Response<User>) {
+                 println("getBabylistCalled")
+                 if (response.isSuccessful) {
+                     println(response.body())
+                     Toast.makeText(
+                         this@DrawerActivity,
+                         "List displayed ",
+                         Toast.LENGTH_SHORT
+                     ).show()
+
+                     val babies= JSONTokener(response.toString()).nextValue() as JSONArray
+                     for (i in 0 until babies.length()){
+                         babyList.add(Baby(name = babies.getJSONObject(i).getString("babyName") ))
+                     }
+                     recyclerBabyAdapter.notifyDataSetChanged()
+
+                 } else {
+                     Toast.makeText(this@DrawerActivity, "Error", Toast.LENGTH_SHORT)
+                         .show()
+                 }
+             }
+
+             override fun onFailure(call: Call<User>, t: Throwable) {
+                 t.message?.let {
+                     Snackbar.make(
+                         findViewById(R.id.HomeLayout),
+                         it,
+                         Snackbar.LENGTH_SHORT
+                     ).show()
+                 }
+                 *//*Toast.makeText(this@HomeActivity, "something went wrong", Toast.LENGTH_SHORT)
+                    .show()*//*
+            }
+        })*/
+        recyclerBabyAdapter= BabyAdapter(babyList)
+        recyclerBaby.adapter=recyclerBabyAdapter
+
+        recyclerBaby.layoutManager= LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
+      //  actionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+  /*      recyclerBaby=findViewById(R.id.recyclerView)
 
         var babyList:MutableList<Baby> = ArrayList()
 
@@ -50,7 +99,7 @@ class HomeActivity : AppCompatActivity() {
 
                 if (response.isSuccessful) {
                     Toast.makeText(
-                        this@HomeActivity,
+                        this@DrawerActivity,
                         "List displayed ",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -61,30 +110,34 @@ class HomeActivity : AppCompatActivity() {
                     }
 
                 } else {
-                    Toast.makeText(this@HomeActivity, "Error", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@DrawerActivity, "Error", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(this@HomeActivity, "something went wrong", Toast.LENGTH_SHORT)
-                    .show()
+                t.message?.let {
+                    Snackbar.make(
+                        findViewById(R.id.DrawerLayout),
+                        it,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+                *//*Toast.makeText(this@HomeActivity, "something went wrong", Toast.LENGTH_SHORT)
+                    .show()*//*
             }
         })
         recyclerBabyAdapter= BabyAdapter(babyList)
         recyclerBaby.adapter=recyclerBabyAdapter
 
-        recyclerBaby.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
-
-
-
+        recyclerBaby.layoutManager=LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)*/
 
         nav_view.setNavigationItemSelectedListener {
             it.isChecked=true
 
             when (it.itemId) {
                 R.id.nav_home -> {
-                    val intent= Intent(this, HomeActivity::class.java)
+                    val intent= Intent(this, DrawerActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_babies -> {

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import tn.esprit.front.R
+import tn.esprit.front.Views.Home.DrawerActivity
 import tn.esprit.front.Views.ProfileActivity
 import tn.esprit.front.models.Baby
 
@@ -22,13 +23,11 @@ class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyView
         val name=babyList[position].name
 //        val pic=babyList[position].babyPic
         holder.babyName.text=name
-
-//        holder.babyPic.setImageResource(babyList[position].babyPic)
+        holder.babyPic.setImageResource(babyList[position].babyPic!!)
 
         holder.itemView.setOnClickListener{
-            val intent=Intent(holder.itemView.context,ProfileActivity::class.java)
+            val intent=Intent(holder.itemView.context,DrawerActivity::class.java)
             intent.apply {
-                putExtra(NAME,name)
             }
             holder.itemView.context.startActivity(intent)
         }

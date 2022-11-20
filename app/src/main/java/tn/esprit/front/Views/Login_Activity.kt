@@ -8,12 +8,13 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import android.widget.EditText
-import tn.esprit.front.Views.Home.HomeActivity
+import tn.esprit.front.Views.Home.DrawerActivity
 import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Home.HomeActivity
 import tn.esprit.front.models.User
 import tn.esprit.front.viewmodels.ApiInterface
 
@@ -60,7 +61,7 @@ class Login_Activity : AppCompatActivity() {
 
          if (IS_REMEMBRED== "true")
         {
-            val intent = Intent(this@Login_Activity, HomeActivity::class.java)
+            val intent = Intent(this@Login_Activity, DrawerActivity::class.java)
             startActivity(intent)
         }
 
@@ -85,8 +86,7 @@ class Login_Activity : AppCompatActivity() {
 
     }
     private fun clickLogin()
-    {
-        if (validate())
+    { if (validate())
         {
             val user = User( email.text.toString(), password.text.toString())
             services.login(user).enqueue(object : Callback<User>
@@ -103,7 +103,7 @@ class Login_Activity : AppCompatActivity() {
                             editor.apply()
                         }
 
-                        val intent = Intent(this@Login_Activity, HomeActivity::class.java)
+                        val intent = Intent(this@Login_Activity, DrawerActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
