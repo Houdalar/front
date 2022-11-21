@@ -5,11 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import tn.esprit.front.R
-import tn.esprit.front.Views.Home.DrawerActivity
 import tn.esprit.front.Views.ProfileActivity
 import tn.esprit.front.models.Baby
+import tn.esprit.front.models.PICTURE
 
-const val NAME = "NAME"
 
 class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BabyViewHolder {
@@ -26,8 +25,10 @@ class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyView
         holder.babyPic.setImageResource(babyList[position].babyPic!!)
 
         holder.itemView.setOnClickListener{
-            val intent=Intent(holder.itemView.context,DrawerActivity::class.java)
+            val intent=Intent(holder.itemView.context,ProfileActivity::class.java)
             intent.apply {
+                putExtra(PICTURE,babyList[position].babyPic)
+                putExtra(tn.esprit.front.models.NAME,name)
             }
             holder.itemView.context.startActivity(intent)
         }

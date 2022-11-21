@@ -44,9 +44,9 @@ class DrawerActivity : AppCompatActivity() {
 
         var babyList:MutableList<Baby> = ArrayList()
 
-        babyList.add(Baby("test 1","20/11/2022",R.drawable.ines,"inessaid1905@gmail.com"))
-        babyList.add(Baby("test 2","20/11/2022",R.drawable.gradient_splash,"inessaid1905@gmail.com"))
-        babyList.add(Baby("test 3","20/11/2022",R.drawable.ines,"inessaid1905@gmail.com"))
+        babyList.add(Baby("test 1","20/11/2022",R.drawable.capture,"inessaid1905@gmail.com"))
+        babyList.add(Baby("test 2","20/11/2022",R.drawable.capture,"inessaid1905@gmail.com"))
+        babyList.add(Baby("test 3","20/11/2022",R.drawable.capture,"inessaid1905@gmail.com"))
 
         /* services.getBabyList(user).enqueue(object : Callback<User> {
              override fun onResponse(call: Call<User>, response: Response<User>) {

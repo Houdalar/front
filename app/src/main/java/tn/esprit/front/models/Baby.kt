@@ -1,9 +1,10 @@
 package tn.esprit.front.models
 
-import android.provider.ContactsContract.CommonDataKinds.Email
-import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName
+
+const val NAME = "NAME"
+const val PICTURE="PICTURE"
 
 data class Baby(
     @SerializedName("babyName")
