@@ -10,7 +10,7 @@ import tn.esprit.front.models.Baby
 import tn.esprit.front.models.PICTURE
 
 
-class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyViewHolder>(){
+/*class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BabyViewHolder {
         val view=LayoutInflater.from(parent.context)
             .inflate(R.layout.baby_item,parent,false)
@@ -37,3 +37,5 @@ class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyView
 
     override fun getItemCount()=babyList.size
 }
+
+ */

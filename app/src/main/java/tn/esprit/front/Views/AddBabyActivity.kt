@@ -1,6 +1,7 @@
 package tn.esprit.front.Views
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.RadioButton
+import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import tn.esprit.front.Views.Home.DrawerActivity
@@ -26,10 +28,10 @@ import tn.esprit.front.viewmodels.ApiInterface
 class AddBabyActivity : AppCompatActivity() {
     var services = ApiInterface.create()
 
-    private lateinit var babyName: TextInputEditText
+    lateinit var babyName: TextInputEditText
     lateinit var birthday: TextInputEditText
 
-    private lateinit var babyNameError: TextInputLayout
+    lateinit var babyNameError: TextInputLayout
     lateinit var birthdayError: TextInputLayout
 
     lateinit var rdBoy:RadioButton
@@ -37,8 +39,9 @@ class AddBabyActivity : AppCompatActivity() {
 
     lateinit var startBtn: MaterialButton
 
-    private  var babyPic: ImageView?=null
+    lateinit  var babyPic: ImageView
     private  var selectedImageUri: Uri?=null
+    lateinit var testEmail:TextView
     lateinit var mSharedPreferences: SharedPreferences
     private var PREF_NAME:String?="PREF_NAME"
 
@@ -56,22 +59,20 @@ class AddBabyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_baby2)
 
-        /*supportActionBar?.hide()
+        supportActionBar?.hide()
 
+
+        startBtn=findViewById(R.id.startBtn)
+        babyPic=findViewById(R.id.AddBabyPic)
         babyName=findViewById(R.id.BabyName)
         birthday=findViewById(R.id.BabyBirthday)
 
         birthdayError=findViewById(R.id.BirthdayLayout)
         babyNameError=findViewById(R.id.BabyNameLayout)
 
-        startBtn=findViewById(R.id.startBtn)
-        rdBoy=findViewById(R.id.rbBoy)
-        rdGirl=findViewById(R.id.rbGirl)
+        testEmail=findViewById(R.id.testEmail)
 
-        babyPic=findViewById(R.id.AddBabyPic)
-
-        mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
-
+        mSharedPreferences=getSharedPreferences(PREF_NAME,Context.MODE_PRIVATE)
 
 
         babyPic!!.setOnClickListener {
@@ -79,12 +80,79 @@ class AddBabyActivity : AppCompatActivity() {
         }
 
         startBtn.setOnClickListener {
-           addBaby()
+            start()
         }
-*/
 
-    }}
+        /*babyName=findViewById(R.id.BabyName)
+        birthday=findViewById(R.id.BabyBirthday)
 
+
+
+        startBtn=findViewById(R.id.startBtn)
+        rdBoy=findViewById(R.id.rbBoy)
+        rdGirl=findViewById(R.id.rbGirl)
+
+        babyPic=findViewById(R.id.AddBabyPic)
+
+        mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)*/
+
+
+
+
+
+        /*startBtn.setOnClickListener {
+            val intent = Intent(this@AddBabyActivity, DrawerActivity::class.java)
+            startActivity(intent)
+        }*/
+
+
+    }
+
+    private fun start() {
+        if (validate()){
+            val email = mSharedPreferences.getString("email", "")
+            println(email)
+            val baby=Baby(email="inessaid1905@gmail.com",babyName=babyName.text.toString(),birthday=birthday.text.toString(),babyPic=selectedImageUri.toString())
+            println(email)
+            println(babyName.text.toString())
+            println(birthday.text.toString())
+            println(selectedImageUri.toString())
+            services.addBaby(baby).enqueue(object:Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if(response.isSuccessful){
+                        println(response.message())
+                        Snackbar.make(
+                            findViewById(R.id.scrollViewAddBaby),
+                            getString(R.string.babyAddedSuccessfully),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                        val intent = Intent(this@AddBabyActivity, DrawerActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else
+                    {
+                        println( response.message())
+                        Snackbar.make(
+                            findViewById(R.id.scrollViewAddBaby),
+                            getString(R.string.babyAddedFailure),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    t.message?.let {
+                        Snackbar.make(
+                            findViewById(R.id.scrollViewAddBaby),
+                            it,
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+            })
+        }
+    }
     /*private fun addBaby() {
         if (validate()){
             val email = mSharedPreferences.getString("email", "")
@@ -116,7 +184,7 @@ class AddBabyActivity : AppCompatActivity() {
                         ).show()
                     }
 
-                    }
+                }
 
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     t.message?.let {
@@ -129,7 +197,7 @@ class AddBabyActivity : AppCompatActivity() {
                 }
             })
         }
-    }
+    }*/
 
     private fun openGallery() {
         val intent= Intent(Intent.ACTION_OPEN_DOCUMENT)
@@ -168,4 +236,7 @@ class AddBabyActivity : AppCompatActivity() {
             return false
         }
         return true
-    }*/
+    }
+}
+
+

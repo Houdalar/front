@@ -35,6 +35,18 @@
             android:src="@drawable/add_a_photo_48px"
             android:layout_gravity="center"/>
 
+        <TextView
+            android:id="@+id/testEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ines.said1920@gmail.com"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+
+            android:layout_gravity="center"/>
+
 
         <TextView
             android:layout_width="wrap_content"

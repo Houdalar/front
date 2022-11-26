@@ -14,6 +14,6 @@ data class User(
     @SerializedName("token")
     var token: String? = null,
     @SerializedName("baby")
-    var baby:Baby?=null
+    var baby:ArrayList<Baby>?=null
 
 )

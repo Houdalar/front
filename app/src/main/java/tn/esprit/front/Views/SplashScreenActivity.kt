@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import tn.esprit.front.R
 import tn.esprit.front.Views.Home.DrawerActivity
-import tn.esprit.front.Views.Home.HomeActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

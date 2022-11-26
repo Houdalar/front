@@ -51,6 +51,7 @@
         android:layout_marginBottom="18dp"
         android:gravity="end"
         android:text="Next"
+        android:textColor="@color/SecondaryColorDark"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

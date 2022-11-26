@@ -19,21 +19,23 @@ import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
 import tn.esprit.front.Views.*
-import tn.esprit.front.Views.Home.BabyList.BabyAdapter
+//import tn.esprit.front.Views.Home.BabyList.BabyAdapter
 import tn.esprit.front.models.Baby
 import tn.esprit.front.models.User
 import tn.esprit.front.viewmodels.ApiInterface
 
 class DrawerActivity : AppCompatActivity() {
-    var services = ApiInterface.create()
+   /* var services = ApiInterface.create()
 
     lateinit var recyclerBaby: RecyclerView
     lateinit var recyclerBabyAdapter: BabyAdapter
-    lateinit var mSharedPreferences: SharedPreferences
+    lateinit var mSharedPreferences: SharedPreferences*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_drawer)
 
-        mSharedPreferences=getSharedPreferences("PREF_NAME", MODE_PRIVATE)
+       /* mSharedPreferences=getSharedPreferences("PREF_NAME", MODE_PRIVATE)
         val userEmail=mSharedPreferences.getString("email","")
         val user= User(email = userEmail.toString())
 
@@ -44,9 +46,8 @@ class DrawerActivity : AppCompatActivity() {
 
         var babyList:MutableList<Baby> = ArrayList()
 
-        babyList.add(Baby("test 1","20/11/2022",R.drawable.capture,"inessaid1905@gmail.com"))
-        babyList.add(Baby("test 2","20/11/2022",R.drawable.capture,"inessaid1905@gmail.com"))
-        babyList.add(Baby("test 3","20/11/2022",R.drawable.capture,"inessaid1905@gmail.com"))
+        babyList.add(Baby("test 1","21/11/2022",R.drawable.capture,"inessaid1905@gmail.com"))
+
 
         /* services.getBabyList(user).enqueue(object : Callback<User> {
              override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -209,5 +210,5 @@ class DrawerActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
-}
+*/
+}}

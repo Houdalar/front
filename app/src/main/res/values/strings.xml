@@ -12,6 +12,6 @@
     <string name="FieldEmptyError">This field must not be empty!</string>
     <string name="selectImageError">Please select a picture !</string>
     <string name="babyAddedSuccessfully">Baby added Successfully</string>
-    <string name="babyAddedFailure">Failed to connect</string>
+    <string name="babyAddedFailure">Failed to add</string>
     <string name="babyAddError">Error !</string>
 </resources>

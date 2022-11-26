@@ -14,7 +14,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
-import tn.esprit.front.Views.Home.HomeActivity
 import tn.esprit.front.models.User
 import tn.esprit.front.viewmodels.ApiInterface
 

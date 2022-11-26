@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import tn.esprit.front.R
 
-class BabyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
+/*class BabyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
     val babyPic:ImageView
     val babyName:TextView=itemView.findViewById(R.id.itemName)
 
@@ -14,3 +14,5 @@ class BabyViewHolder (itemView: View):RecyclerView.ViewHolder(itemView){
         babyPic=itemView.findViewById(R.id.itemPic)
     }
 }
+
+ */

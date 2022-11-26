@@ -20,6 +20,9 @@
             app:destination="@id/login_Activity"
             app:popUpTo="@id/splashScreenFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashScreenFragment_to_drawerActivity"
+            app:destination="@id/drawerActivity" />
     </fragment>
     <fragment
         android:id="@+id/viewPagerFragment"
@@ -37,4 +40,9 @@
         android:name="tn.esprit.front.Views.Login_Activity"
         android:label="login_screen"
         tools:layout="@layout/login_screen" />
+    <activity
+        android:id="@+id/drawerActivity"
+        android:name="tn.esprit.front.Views.Home.DrawerActivity"
+        android:label="activity_drawer"
+        tools:layout="@layout/activity_drawer" />
 </navigation>
