@@ -31,14 +31,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Views.Activities.HeightActivity"
+            android:name=".Views.Activities.Height.HeightActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Views.Activities.WeightActivity"
+            android:name=".Views.Activities.Weight.WeightActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

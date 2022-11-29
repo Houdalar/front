@@ -1,13 +1,12 @@
-package tn.esprit.front.Views.Activities
+package tn.esprit.front.Views.Activities.Weight
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import tn.esprit.front.R
 
-class HeightActivity : AppCompatActivity() {
+class WeightActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_height)
-        supportActionBar?.setTitle("Height")
+        setContentView(R.layout.activity_weight)
     }
 }
