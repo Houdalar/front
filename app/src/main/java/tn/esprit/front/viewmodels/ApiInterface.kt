@@ -27,17 +27,22 @@ interface ApiInterface {
     fun resetPassword (@Body user: User):Call<User>
     @POST("/user/verifyCode")
     fun verifyCode (@Body user: User):Call<User>
-    @PUT("/user/addBaby")
-    fun addBaby(@Body baby: Baby) : Call<User>
 
-    @POST("user/getbabylist")
+
+    @PUT("/user/baby/addBaby")
+    fun addBaby(@Body baby: Baby) : Call<Baby>
+
+    @POST("user/baby/getbabylist")
     fun getBabyList(@Body user: User) :Call<User>
 
-    @GET("/user/getBaby")
-    fun getBaby(@Body baby:Baby):Call<User>
+    @POST("/user/baby/getBaby")
+    fun getBaby(@Body baby:Baby):Call<Baby>
 
-    @GET("/user/getBabyByName")
-    fun getBabyByName(@Body baby: Baby):Call<User>
+
+
+
+
+
 
 
 
@@ -48,7 +53,7 @@ interface ApiInterface {
             println("ApiInterface")
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://192.168.1.22:8080")
+                .baseUrl("http://172.17.2.175:8080")
                 .build()
 
 

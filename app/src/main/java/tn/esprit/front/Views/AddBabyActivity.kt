@@ -117,8 +117,8 @@ class AddBabyActivity : AppCompatActivity() {
             println(babyName.text.toString())
             println(birthday.text.toString())
             println(selectedImageUri.toString())
-            services.addBaby(baby).enqueue(object:Callback<User>{
-                override fun onResponse(call: Call<User>, response: Response<User>) {
+            services.addBaby(baby).enqueue(object:Callback<Baby>{
+                override fun onResponse(call: Call<Baby>, response: Response<Baby>) {
                     if(response.isSuccessful){
                         println(response.message())
                         Snackbar.make(
@@ -129,18 +129,18 @@ class AddBabyActivity : AppCompatActivity() {
                         val intent = Intent(this@AddBabyActivity, DrawerActivity::class.java)
                         startActivity(intent)
                     }
-                    else
+                    if (response.code()==401)
                     {
                         println( response.message())
                         Snackbar.make(
                             findViewById(R.id.scrollViewAddBaby),
-                            getString(R.string.babyAddedFailure),
+                            getString(R.string.babyExistes),
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }
                 }
 
-                override fun onFailure(call: Call<User>, t: Throwable) {
+                override fun onFailure(call: Call<Baby>, t: Throwable) {
                     t.message?.let {
                         Snackbar.make(
                             findViewById(R.id.scrollViewAddBaby),

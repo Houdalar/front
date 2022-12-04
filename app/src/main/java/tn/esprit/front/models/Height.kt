@@ -9,6 +9,8 @@ data class Height(
     var babyName: String? = null,
     @SerializedName("height")
     var height: Number,
+    @SerializedName("date")
+    var date: String,
 
 
 

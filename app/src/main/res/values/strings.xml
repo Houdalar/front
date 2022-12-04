@@ -13,5 +13,6 @@
     <string name="selectImageError">Please select a picture !</string>
     <string name="babyAddedSuccessfully">Baby added Successfully</string>
     <string name="babyAddedFailure">Failed to add</string>
+    <string name="babyExistes">Baby already exists</string>
     <string name="babyAddError">Error !</string>
 </resources>
