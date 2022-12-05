@@ -1,26 +1,23 @@
 package tn.esprit.front.Ui.PlayList
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import tn.esprit.front.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import tn.esprit.front.models.PlayList
 
 
 class Playlist : Fragment() {
-
+    lateinit var recylcerPlaylist: RecyclerView
+    lateinit var recylcerPlaylistAdapter: PlayListViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
     }
 
     override fun onCreateView(
@@ -28,8 +25,23 @@ class Playlist : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_playlist, container, false)
+        val view = inflater.inflate(R.layout.fragment_playlist, container, false)
+        recylcerPlaylist = view.findViewById(R.id.recyclerplaylist)
+
+
+
+        var playList : MutableList<PlayList> = ArrayList()
+
+        playList.add(PlayList("morning", R.drawable.cover2))
+        playList.add(PlayList("disney", R.drawable.cover3))
+        playList.add(PlayList("hi ", R.drawable.cover4))
+
+        recylcerPlaylistAdapter = PlayListViewAdapter(playList)
+        recylcerPlaylist.adapter = recylcerPlaylistAdapter
+        recylcerPlaylist.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        return view
     }
+
 
     companion object {
 

@@ -10,5 +10,6 @@ data class PlayList (
     @DrawableRes
     var cover: Int? = null,
 //    var songs: List<Song>? = null,
-    var user: User? = null
+    var owner: User? = null,
+    var tracks: List<Tracks>? = null
     )

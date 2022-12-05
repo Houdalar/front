@@ -96,13 +96,15 @@ class Login_Activity : AppCompatActivity() {
 
                     if (response.isSuccessful)
                     {
+                        val editor = preference.edit()
+                        editor.putString("token", response.body()?.token)
+                        editor.apply()
                         if (rememberMe.isChecked)
                         {
                             val editor = preference.edit()
                             editor.putBoolean(IS_REMEMBRED, true)
                             editor.apply()
                         }
-
                         val intent = Intent(this@Login_Activity, Home::class.java)
                         startActivity(intent)
                         finish()

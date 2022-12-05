@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import tn.esprit.front.R
+import tn.esprit.front.Ui.Home
 import tn.esprit.front.models.PlayList
 
 class PlayListViewAdapter (val PlayList: MutableList<PlayList>) : RecyclerView.Adapter<PlayListViewHolder>()  {
@@ -30,7 +31,6 @@ class PlayListViewAdapter (val PlayList: MutableList<PlayList>) : RecyclerView.A
             }
             holder.itemView.context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount() = PlayList.size
