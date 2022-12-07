@@ -1,5 +1,21 @@
 <resources>
-    <string name="app_name">front</string>
+    <string name="app_name">BabyLo</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="btc_next">Next</string>
+    <string name="btc_done">Done</string>
+    <string name="first_fragment_label">First Fragment Add Baby</string>
+    <string name="second_fragment_label">Second Fragment Add Baby</string>
+    <string name="FieldEmptyError">This field must not be empty!</string>
+    <string name="selectImageError">Please select a picture !</string>
+    <string name="babyAddedSuccessfully">Baby added Successfully</string>
+    <string name="babyAddedFailure">Failed to add</string>
+    <string name="babyExistes">Baby already exists</string>
+    <string name="babyAddError">Error !</string>
+    <string name="heightAdded">Height added</string>
+    <string name="babyNotfound">Baby not found</string>
+    <string name="userNotfound">User not found</string>
 </resources>

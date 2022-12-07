@@ -1,4 +1,4 @@
-package tn.esprit.front.Views
+package tn.esprit.front.Views.Activities.Signin
 
 import android.content.Context
 import android.content.Intent
@@ -8,17 +8,21 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import android.widget.EditText
+import tn.esprit.front.Views.Activities.Home.DrawerActivity
 import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signup.SignUp_Activity
 import tn.esprit.front.models.User
 import tn.esprit.front.viewmodels.ApiInterface
 
-const val PREF_NAME = "LOGIN_PREF_Bear"
+const val PREF_NAME = "BEAR_PREF"
+const val TOKEN = "TOKEN"
 const val IS_REMEMBRED = "IS_REMEMBRED"
-
+const val EMAIL = "EMAIL"
+const val FIRSTIME = "FIRSTIME"
 class Login_Activity : AppCompatActivity() {
 
     lateinit var email: EditText
@@ -29,7 +33,7 @@ class Login_Activity : AppCompatActivity() {
     lateinit var forgotYourPassword : TextView
     lateinit var rememberMe: CheckBox
 
-    lateinit var preference : SharedPreferences
+    private lateinit var mSharedPref: SharedPreferences
 
     lateinit var backToSignUpButton : Button
     lateinit var loginButton: Button
@@ -55,14 +59,7 @@ class Login_Activity : AppCompatActivity() {
 
         forgotYourPassword = findViewById(R.id.forgot_password)
 
-        preference=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-
-         if (IS_REMEMBRED== "true")
-        {
-            val intent = Intent(this@Login_Activity, Home::class.java)
-            startActivity(intent)
-        }
-
+        mSharedPref = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
 
 
         loginButton.setOnClickListener()
@@ -78,8 +75,8 @@ class Login_Activity : AppCompatActivity() {
 
         forgotYourPassword.setOnClickListener()
         {
-//            val intent = Intent(this@Login_Activity, ForgotPassword::class.java)
-//            startActivity(intent)
+            val intent = Intent(this@Login_Activity, Reset_password_1_Activity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -95,14 +92,18 @@ class Login_Activity : AppCompatActivity() {
 
                     if (response.isSuccessful)
                     {
+                        mSharedPref.edit().apply{
+                            putString(TOKEN,response.body()?.token.toString())
+                            putBoolean(FIRSTIME,false)
+                        }.apply()
+                        Log.e("token",mSharedPref.getString(TOKEN,"").toString())
                         if (rememberMe.isChecked)
                         {
-                            val editor = preference.edit()
-                            editor.putBoolean(IS_REMEMBRED, true)
-                            editor.apply()
+                            mSharedPref.edit().apply{
+                                putBoolean(IS_REMEMBRED,false)
+                            }.apply()
                         }
-
-                        val intent = Intent(this@Login_Activity, Home::class.java)
+                        val intent = Intent(this@Login_Activity, DrawerActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
