@@ -18,7 +18,7 @@ interface ApiInterface {
     @POST("/user/signup")
     fun signup(@Body user: User):Call<User>
     @POST("/user/resend")
-    fun resendCode (@Body user: User ):Call<User>
+    fun resendCode (@Body user: User):Call<User>
     @PUT("/user/activate")
     fun activateAccount (@Body user: User):Call<User>
     @POST("/user/paswordforgot")
@@ -37,7 +37,7 @@ interface ApiInterface {
 
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://172.16.6.183:8080")
+                .baseUrl("http://172.17.3.247:8080")
                 .build()
 
             return retrofit.create(ApiInterface::class.java)

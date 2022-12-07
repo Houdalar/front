@@ -20,6 +20,7 @@ import tn.esprit.front.viewmodels.musicApi
 class Topmusic : Fragment() {
     lateinit var recylcersong: RecyclerView
     lateinit var recylcersongAdapter: songviewadapter
+    var tracks: ArrayList<Tracks> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,27 +30,26 @@ class Topmusic : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //lateinit var preference: SharedPreferences
+
         val view = inflater.inflate(R.layout.fragment_playlist, container, false)
         recylcersong = view.findViewById(R.id.recyclerplaylist)
         //preference= requireActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         //val token = preference.getString("token", "")
-        var services = musicApi.create()
+       var services = musicApi.create()
 
 
 
-        services.getTracks()!!.enqueue(object : Callback<ArrayList<Tracks>?>{
-            override fun onResponse(call: Call<ArrayList<Tracks>?>, response: Response<ArrayList<Tracks>?>) {
+        services.getTracks()!!.enqueue(object : Callback<MutableList<Tracks>>{
+            override fun onResponse(call: Call<MutableList<Tracks>>, response: Response<MutableList<Tracks>>) {
                 if (response.code()==200) {
 
-                    val songs : ArrayList<Tracks>
-                    val tracksList : ArrayList<Tracks> = response.body()!!
-                    for(track in tracksList){
-                        songs.add(Tracks(name = track.name, artist = track.artist, cover = track.cover, duration = track.duration, listened = track.listened, date = track.date))
-                    }
 
-                    recylcersongAdapter = songviewadapter(tracksList)
+                    val tracksList = response.body() as MutableList<Tracks>
+                    tracks.addAll(tracksList)
+
+                    recylcersongAdapter = songviewadapter(tracks)
                     recylcersong.adapter = recylcersongAdapter
+                    recylcersongAdapter.notifyDataSetChanged()
                     recylcersong.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL, false)
                 }
 
@@ -58,14 +58,18 @@ class Topmusic : Fragment() {
                     Toast.makeText(context, "error ", Toast.LENGTH_SHORT).show()
                 }
             }
-            override fun onFailure(call: Call<ArrayList<Tracks>?>, t: Throwable)
+            override fun onFailure(call: Call<MutableList<Tracks>>, t: Throwable)
             {
                 Toast.makeText(context, "error while getting the tracks", Toast.LENGTH_SHORT).show()
             }
         })
-       /* songs.add(Song("morning","itchigo", R.drawable.cover2))
-        songs.add(Song("vogel im kamfig","arima" ,R.drawable.cover3))
-        songs.add(Song("to destroy the evil ","kimetsu no yaiba" ,R.drawable.cover4))*/
+       /* tracks.add(Tracks("morning","itchigo",cover= R.drawable.cover2,duration = "3:00", url = "http://172.17.3.247:8080/media/music/aot.mp3"))
+        tracks.add(Tracks("vogel im kamfig","arima" ,cover=R.drawable.cover3 ,duration = "3:00", url = "http://172.17.3.247:8080/media/music/Black Clover - Opening 6 (HD).mp3"))
+        tracks.add(Tracks("to destroy the evil ","kimetsu no yaiba" ,cover=R.drawable.cover4,duration = "3:00", url = "http://172.17.3.247:8080/media/music/black Clover 5.mp3"))
+
+        recylcersongAdapter = songviewadapter(tracks)
+        recylcersong.adapter = recylcersongAdapter
+        recylcersong.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL, false)*/
         return view
     }
 

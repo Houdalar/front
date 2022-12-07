@@ -8,14 +8,16 @@ data class Tracks (
     @SerializedName("artist")
     var artist: String? = null,
     @SerializedName("cover")
-    var cover: Int? = null,
+    var cover: String? = null,
     @SerializedName("duration")
     var duration: String? = null,
     @SerializedName("listened")
     var listened: Int? = null,
     @SerializedName("date")
     var date: String? = null,
-    var token : String? = null
+    var token : String? = null,
+    var url : String? = null
+
 )
 
 data class tracksResult (
