@@ -5,7 +5,4 @@
     android:layout_height="match_parent"
     tools:context=".Views.Fragments.SplashScreenFragment"
     android:background="@drawable/gradient_splash">
-
-
-
 </FrameLayout>

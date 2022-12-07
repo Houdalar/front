@@ -40,9 +40,11 @@ class VaccineDialog(
 
             map["token"] = token
             map["vaccine"]=binding.babyVaccineTxt.text.toString()
+            map["date"] =binding.VaccineDateTxt.text.toString()
             map["babyName"]= babyName
             Log.e("token",token)
             Log.e("vaccine",binding.babyVaccineTxt.text.toString())
+            Log.e("date",binding.VaccineDateTxt.text.toString())
             Log.e("babyName",babyName)
             services.addVaccine(map).enqueue(object: Callback<Vaccine> {
                 override fun onResponse(call: Call<Vaccine>, response: Response<Vaccine>) {
