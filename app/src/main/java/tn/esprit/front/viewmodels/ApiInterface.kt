@@ -6,8 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.Query
-import tn.esprit.front.models.User
+import tn.esprit.front.models.*
 
 interface ApiInterface {
 
@@ -25,15 +24,48 @@ interface ApiInterface {
     fun resetPassword (@Body user: User):Call<User>
     @POST("/user/verifyCode")
     fun verifyCode (@Body user: User):Call<User>
+    @POST("/user/verifyEmail")
+    fun verifyEmail (@Body user: User):Call<User>
+
+
+    @POST("/user/baby/addBaby")
+    fun addBaby(@Body map : HashMap<String, String>) : Call<Baby>
+
+    @POST("user/baby/getbabylist")
+    fun getBabyList(@Body map : HashMap<String, String> ) :Call<MutableList<Baby>>
+
+    @POST("/user/baby/getBaby")
+    fun getBaby(@Body baby:Baby):Call<Baby>
+
+    @POST("/user/baby/addHeight")
+    fun addHeight(@Body map : HashMap<String, String>) : Call<Height>
+
+    @POST("user/baby/getbabyheights")
+    fun getBabyHeights(@Body map : HashMap<String, String>) :Call<MutableList<Height>>
+
+    @POST("/user/baby/addWeight")
+    fun addWeight(@Body map : HashMap<String, String>) : Call<Weight>
+
+    @POST("user/baby/getbabyweights")
+    fun getBabyWeights(@Body map : HashMap<String, String>) :Call<MutableList<Weight>>
+
+    @POST("/user/baby/addVaccine")
+    fun addVaccine(@Body map : HashMap<String, String>) : Call<Vaccine>
+
+    @POST("user/baby/getbabyvaccines")
+    fun getBabyVaccines(@Body map : HashMap<String, String>) :Call<MutableList<Vaccine>>
+
 
     companion object {
 
         fun create() : ApiInterface {
 
+            println("ApiInterface")
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://192.168.1.16:8080")
+                .baseUrl("http://172.17.8.117:8080")
                 .build()
+
 
             return retrofit.create(ApiInterface::class.java)
         }
