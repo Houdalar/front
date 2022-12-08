@@ -12,20 +12,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
-import tn.esprit.front.Views.Activities.Height.HeightAdapter
-import tn.esprit.front.Views.Activities.Height.HeightDialog
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
-import tn.esprit.front.models.Height
 import tn.esprit.front.models.Vaccine
-import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.BabyAPIInterface
 
 class VaccinsActivity : AppCompatActivity() {
-    var services = ApiInterface.create()
+    var services = BabyAPIInterface.create()
 
     lateinit var vaccineRecyclerView: RecyclerView
     lateinit var vaccineAdapter: VaccineAdapter
-    lateinit var vaccineList: MutableList<Height>
+    lateinit var vaccineList: MutableList<Vaccine>
     lateinit var mSharedPreferences: SharedPreferences
 
     lateinit var addBtn: FloatingActionButton

@@ -13,21 +13,21 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/vaccine"
+            android:id="@+id/doctorName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginBottom="5dp"
             android:layout_gravity="start"
             android:textSize="23sp"
-            android:text="vaccine name"
+            android:text="doctor name"
             android:textStyle="bold"
             android:textColor="@color/SecondaryColor"/>
 
 
 
         <TextView
-            android:id="@+id/dateVaccine"
+            android:id="@+id/dateConsultation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
@@ -35,6 +35,20 @@
             android:layout_marginStart="40dp"
             android:text="26/11/2022"
             android:textColor="@color/SecondaryColor"
+            android:textSize="15sp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="40dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/timeConsultation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:layout_marginStart="40dp"
+            android:text="26/11/2022"
+            android:textColor="@color/SecondaryColorLight"
             android:textSize="15sp"
             android:layout_marginEnd="40dp"
             android:textStyle="bold" />

@@ -1,6 +1,6 @@
 package tn.esprit.front.Views.Activities.Signin
 
-import android.content.Context
+
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +21,6 @@ import tn.esprit.front.viewmodels.ApiInterface
 const val PREF_NAME = "BEAR_PREF"
 const val TOKEN = "TOKEN"
 const val IS_REMEMBRED = "IS_REMEMBRED"
-const val EMAIL = "EMAIL"
 const val FIRSTIME = "FIRSTIME"
 class Login_Activity : AppCompatActivity() {
 
@@ -132,8 +131,8 @@ class Login_Activity : AppCompatActivity() {
 
     private fun validate():Boolean
     {
-        var mail:Boolean=true
-        var pswd:Boolean=true
+        var mail=true
+        var pswd=true
 
         passwordError?.error =null
         mailError?.error =null

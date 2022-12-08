@@ -19,10 +19,11 @@ import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Weight
 import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.BabyAPIInterface
 
 class WeightActivity : AppCompatActivity() {
 
-    var services = ApiInterface.create()
+    var services = BabyAPIInterface.create()
 
     lateinit var weightRecyclerView:RecyclerView
     lateinit var weightAdapter: WeightAdapter

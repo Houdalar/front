@@ -2,9 +2,6 @@ package tn.esprit.front.models
 
 import com.google.gson.annotations.SerializedName
 
-const val NAME = "NAME"
-const val PICTURE="PICTURE"
-
 data class Baby(
     @SerializedName("babyName")
     var babyName:String?=null,

@@ -22,8 +22,6 @@ import tn.esprit.front.models.Baby
 import tn.esprit.front.viewmodels.ApiInterface
 
 class ProfileActivity : AppCompatActivity() {
-    var services = ApiInterface.create()
-
     lateinit var babyNameTxt: TextView
     lateinit var babyPic : ImageView
     lateinit var babyBirthdayTxt:TextView

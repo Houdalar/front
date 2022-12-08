@@ -18,6 +18,7 @@ import tn.esprit.front.databinding.VaccineDialogBinding
 import tn.esprit.front.models.Height
 import tn.esprit.front.models.Vaccine
 import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.BabyAPIInterface
 
 class VaccineDialog(
     val onSubmitClickListener: (String) -> Unit,
@@ -26,7 +27,7 @@ class VaccineDialog(
 ): DialogFragment() {
     private lateinit var binding : VaccineDialogBinding
 
-    val services = ApiInterface.create()
+    val services = BabyAPIInterface.create()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = VaccineDialogBinding.inflate(LayoutInflater.from(context))

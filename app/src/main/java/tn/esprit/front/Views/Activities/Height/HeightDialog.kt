@@ -21,6 +21,7 @@ import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.databinding.HeightDialogBinding
 import tn.esprit.front.models.Height
 import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.BabyAPIInterface
 
 
 class HeightDialog(
@@ -30,7 +31,7 @@ class HeightDialog(
 ):DialogFragment() {
     private lateinit var binding : HeightDialogBinding
 
-    val services = ApiInterface.create()
+    val services = BabyAPIInterface.create()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = HeightDialogBinding.inflate(LayoutInflater.from(context))

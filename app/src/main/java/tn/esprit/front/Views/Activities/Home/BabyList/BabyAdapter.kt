@@ -16,10 +16,6 @@ import tn.esprit.front.viewmodels.ApiInterface
 
 class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyViewHolder>() {
 
-    var services = ApiInterface.create()
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BabyViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.baby_item, parent, false)

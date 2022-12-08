@@ -10,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import android.widget.RadioButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -24,13 +23,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
-import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Baby
-import tn.esprit.front.models.User
-import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.BabyAPIInterface
 
 class AddBabyActivity : AppCompatActivity() {
-    var services = ApiInterface.create()
+    var services = BabyAPIInterface.create()
 
     lateinit var babyName: TextInputEditText
     lateinit var birthday: TextInputEditText
@@ -46,7 +43,6 @@ class AddBabyActivity : AppCompatActivity() {
 
     lateinit  var babyPic: ImageView
     private  var selectedImageUri: Uri?=null
-    lateinit var testEmail:TextView
     private var PREF_NAME:String?="PREF_NAME"
 
 

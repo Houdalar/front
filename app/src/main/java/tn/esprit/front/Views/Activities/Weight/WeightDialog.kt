@@ -23,6 +23,7 @@ import tn.esprit.front.databinding.WeightDialogBinding
 import tn.esprit.front.models.Height
 import tn.esprit.front.models.Weight
 import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.BabyAPIInterface
 
 
 class WeightDialog(
@@ -32,7 +33,7 @@ class WeightDialog(
 ):DialogFragment() {
     private lateinit var binding : WeightDialogBinding
 
-    val services = ApiInterface.create()
+    val services = BabyAPIInterface.create()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = WeightDialogBinding.inflate(LayoutInflater.from(context))
