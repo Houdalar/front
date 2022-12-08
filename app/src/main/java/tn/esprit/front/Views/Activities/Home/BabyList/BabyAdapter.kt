@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import tn.esprit.front.R
 import tn.esprit.front.Views.Activities.Profile.ProfileActivity
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
@@ -24,9 +25,10 @@ class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyView
     }
 
     override fun onBindViewHolder(holder: BabyViewHolder, position: Int) {
-        //val baby = Baby(email = "ines.said@esprit.tn", babyName = "wafa")
+
         val babyName = babyList[position].babyName
-//        val pic=babyList[position].babyPic
+        val pic=babyList[position].babyPic
+        Picasso.with(holder.itemView.context).load(pic).into(holder.babyPic)
         holder.babyName.text = babyName
         //holder.babyPic.setImageResource(babyList[position].babyPic!!)
         var mSharedPreferences: SharedPreferences =
@@ -38,6 +40,7 @@ class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyView
             intent.apply {
                 putExtra("BABYNAME", babyList[position].babyName)
                 putExtra("DATE",babyList[position].birthday)
+                putExtra("BABYPIC",pic)
                 putExtra("token",mSharedPreferences.getString(TOKEN,"").toString())
                 Log.e("******************************************* Token *************************************",mSharedPreferences.getString(TOKEN,"").toString())
             }

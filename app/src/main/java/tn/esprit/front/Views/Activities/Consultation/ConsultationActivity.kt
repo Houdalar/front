@@ -33,7 +33,7 @@ class ConsultationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_consultation)
-        supportActionBar?.setTitle("Consultations")
+        supportActionBar?.title = "Consultations"
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         addBtn=findViewById(R.id.floating_action_button_consultations)
         val bbName : String = intent.getStringExtra("BABYNAME").toString()

@@ -6,16 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import tn.esprit.front.R
-import tn.esprit.front.Views.Activities.Height.HeightAdapter
 import tn.esprit.front.models.Consultation
-import tn.esprit.front.models.Height
-import tn.esprit.front.models.Vaccine
 
 class ConsultationAdapter(val consultationList: MutableList<Consultation>) : RecyclerView.Adapter<ConsultationAdapter.ConsultationViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConsultationViewHolder {
         val view= LayoutInflater.from(parent.context)
-            .inflate(R.layout.vaccin_item,parent,false)
+            .inflate(R.layout.consultation_item,parent,false)
         return ConsultationViewHolder(view)
     }
 
@@ -27,11 +24,7 @@ class ConsultationAdapter(val consultationList: MutableList<Consultation>) : Rec
         holder.time.text=cons.time
     }
 
-
     override fun getItemCount(): Int =  consultationList.size
-
-
-
 
     class ConsultationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

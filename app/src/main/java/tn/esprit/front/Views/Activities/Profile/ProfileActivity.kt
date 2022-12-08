@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,8 +45,12 @@ class ProfileActivity : AppCompatActivity() {
         weightBtn=findViewById(R.id.WeightBtn)
         doctorBtn=findViewById(R.id.DoctorBtn)
         vaccinesBtn=findViewById(R.id.VaccinesBtn)
+        babyPic=findViewById(R.id.profilePic)
         val name : String = intent.getStringExtra("BABYNAME").toString()
+        val picture:String=intent.getStringExtra("BABYPIC").toString()
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+
+        Picasso.with(this).load(picture).into(babyPic)
 
         heightBtn.setOnClickListener {
             val intent=Intent(this,HeightActivity::class.java)
@@ -67,6 +72,10 @@ class ProfileActivity : AppCompatActivity() {
 
         doctorBtn.setOnClickListener {
             val intent=Intent(this,ConsultationActivity::class.java)
+            intent.apply {
+                putExtra("BABYNAME", name)
+                putExtra("token", mSharedPreferences.getString(TOKEN,"").toString())
+            }
             startActivity(intent)
         }
 

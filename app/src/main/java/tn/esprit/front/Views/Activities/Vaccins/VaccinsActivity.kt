@@ -31,7 +31,7 @@ class VaccinsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vaccins)
-        supportActionBar?.setTitle("Vaccines")
+        supportActionBar?.title = "Vaccines"
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         addBtn=findViewById(R.id.floating_action_button_vaccins)
         val bbName : String = intent.getStringExtra("BABYNAME").toString()
