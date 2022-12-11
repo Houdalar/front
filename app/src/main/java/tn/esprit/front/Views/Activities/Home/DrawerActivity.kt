@@ -1,5 +1,6 @@
 package tn.esprit.front.Views.Activities.Home
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -117,7 +118,17 @@ class DrawerActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.nav_logout -> {
-                    true
+                    val builder=AlertDialog.Builder(this)
+                    builder.setTitle(getString(R.string.logoutTitle))
+                    builder.setMessage(getString(R.string.logoutMessage))
+                    builder.setPositiveButton("Yes"){ dialogInterface, which ->
+                        getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit().clear().apply()
+                        finish()
+                    }
+                    builder.setNegativeButton("No"){dialogInterface, which ->
+                        dialogInterface.dismiss()
+                    }
+                    builder.create().show()
                 }
                 R.id.nav_help -> {
                     val intent= Intent(this, HelpActivity::class.java)

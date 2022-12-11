@@ -18,4 +18,6 @@
     <string name="heightAdded">Height added</string>
     <string name="babyNotfound">Baby not found</string>
     <string name="userNotfound">User not found</string>
+    <string name="logoutTitle">Logout</string>
+    <string name="logoutMessage">Are you sure you want to logout ?</string>
 </resources>

@@ -23,10 +23,7 @@ import tn.esprit.front.models.Baby
 import tn.esprit.front.viewmodels.ApiInterface
 
 class ProfileActivity : AppCompatActivity() {
-    lateinit var babyNameTxt: TextView
     lateinit var babyPic : ImageView
-    lateinit var babyBirthdayTxt:TextView
-
     lateinit var heightBtn:MaterialButton
     lateinit var weightBtn:MaterialButton
     lateinit var doctorBtn:MaterialButton
@@ -89,52 +86,4 @@ class ProfileActivity : AppCompatActivity() {
         }
         bbName.text = intent.getStringExtra("BABYNAME").toString()
         bbBirthday.text = intent.getStringExtra("DATE").toString()
-        /*babyNameTxt=findViewById(R.id.bbName)
-        babyPic=findViewById(R.id.profilePic)
-        babyBirthdayTxt=findViewById(R.id.bbBirthday)
-
-
-        val name=intent.getStringExtra("BABYNAME")
-        val email=intent.getStringExtra("EMAIL")
-        val baby = Baby(email = email, babyName = name)
-        /*babyPic.setImageResource(intent.getIntExtra(PICTURE,0))
-
-        val name=intent.getStringExtra(NAME)
-        babyName.text="$name"*/
-
-        services.getBaby(baby).enqueue(object : Callback<Baby> {
-            override fun onResponse(call: Call<Baby>, response: Response<Baby>) {
-                if (response.code()==200) {
-
-                    val babyName = response.body()?.babyName
-                    val babyPic = response.body()?.babyPic
-                    val birthday = response.body()?.birthday
-
-                    babyNameTxt.text=babyName.toString()
-                    babyBirthdayTxt.text=birthday.toString()
-                }
-                if (response.code()==401){
-                    println("Baby not found")
-                }
-
-                if (response.code()==400){
-                    println("user not found")
-                }
-            }
-            override fun onFailure(call: Call<Baby>, t: Throwable) {
-                println("error")
-            }
-
-        })
-
-
-
-
-       /* val name=intent.getStringExtra("BABYNAME")
-        babyName.text="$name"
-        val birthday=intent.getStringExtra("BABYBIRTHDAY")
-        babyBirthday.text="$birthday"*/
-
-         */
-
 }}

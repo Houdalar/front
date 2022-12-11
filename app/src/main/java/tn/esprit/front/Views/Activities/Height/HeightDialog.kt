@@ -35,7 +35,7 @@ class HeightDialog(
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = HeightDialogBinding.inflate(LayoutInflater.from(context))
-        Log.e("******************************************************************** Heigh Dialog ************************",babyName.toString())
+        Log.e("******************************************************************** Height Dialog ************************",babyName.toString())
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)
 
