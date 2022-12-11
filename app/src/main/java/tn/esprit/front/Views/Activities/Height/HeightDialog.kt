@@ -68,6 +68,8 @@ class HeightDialog(
 
         }
 
+
+
         val dialog = builder.create()
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 

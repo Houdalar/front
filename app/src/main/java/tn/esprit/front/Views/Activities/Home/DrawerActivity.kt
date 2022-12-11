@@ -45,6 +45,7 @@ class DrawerActivity : AppCompatActivity() {
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         val userEmail =mSharedPreferences.getString(TOKEN,"").toString()
         Log.e("usermail : ",userEmail)
+
         newbabies.setOnClickListener {
             Log.e("token ***************************************** ",userEmail)
             val intent= Intent(this, AddBabyActivity::class.java)
@@ -65,7 +66,7 @@ class DrawerActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val babies = response.body() as MutableList<Baby>
                     babylist.addAll(babies)
-                    //list.toMutableList().addAll(listOf(babies))
+
                     recyclerBabyAdapter.notifyDataSetChanged()
                     Log.e("babies : ",babies.toString())
                     println(response.body())
@@ -77,7 +78,6 @@ class DrawerActivity : AppCompatActivity() {
 
 
                 } else {
-                    //babyList.add(Baby("wafa","21/11/2022","","ines.said@esprit.tn"))
                     Toast.makeText(this@DrawerActivity, "Error", Toast.LENGTH_SHORT)
                         .show()
                 }

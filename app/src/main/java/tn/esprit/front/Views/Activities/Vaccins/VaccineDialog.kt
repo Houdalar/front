@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.datepicker.MaterialDatePicker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +20,7 @@ import tn.esprit.front.models.Height
 import tn.esprit.front.models.Vaccine
 import tn.esprit.front.viewmodels.ApiInterface
 import tn.esprit.front.viewmodels.BabyAPIInterface
+import java.text.SimpleDateFormat
 
 class VaccineDialog(
     val onSubmitClickListener: (String) -> Unit,
@@ -34,6 +36,22 @@ class VaccineDialog(
         Log.e("******************************************************************** vaccine Dialog ************************",babyName.toString())
         val builder = AlertDialog.Builder(requireActivity())
         builder.setView(binding.root)
+
+
+        val VaccineDatePicker=MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select Vaccine Date")
+            .build()
+
+        VaccineDatePicker.addOnPositiveButtonClickListener {
+            binding.VaccineDateTxt.setText(VaccineDatePicker.headerText.toString())
+        }
+
+        binding.VaccineDateTxt.setOnFocusChangeListener  {view, hasFocus ->
+            if (hasFocus){
+                VaccineDatePicker.show(parentFragmentManager,"VACCINE_DATE")
+            }else{
+                VaccineDatePicker.dismiss()
+            }        }
 
         binding.saveBtnV.setOnClickListener {
             onSubmitClickListener.invoke(binding.babyVaccineTxt.text.toString())

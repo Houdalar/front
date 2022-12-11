@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import tn.esprit.front.Views.Activities.Home.DrawerActivity
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -77,34 +78,30 @@ class AddBabyActivity : AppCompatActivity() {
             openGallery()
         }
 
-        startBtn.setOnClickListener {
-            //start()
-
-        }
-
-        /*babyName=findViewById(R.id.BabyName)
-        birthday=findViewById(R.id.BabyBirthday)
-
-
-
-        startBtn=findViewById(R.id.startBtn)
-        rdBoy=findViewById(R.id.rbBoy)
-        rdGirl=findViewById(R.id.rbGirl)
-
-        babyPic=findViewById(R.id.AddBabyPic)
-
-        mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)*/
-
-
-
 
         val babyName=findViewById<TextInputEditText>(R.id.BabyName)
         startBtn.setOnClickListener {
-            AddBaby(BabyName.text.toString(),BabyBirthday.text.toString())
-            val intent = Intent(this@AddBabyActivity, DrawerActivity::class.java)
-            startActivity(intent)
+            if (validate()){
+                AddBaby(BabyName.text.toString(),BabyBirthday.text.toString())
+                val intent = Intent(this@AddBabyActivity, DrawerActivity::class.java)
+                startActivity(intent)
+            }
         }
 
+        val birthdayPicker= MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select baby's birthday")
+            .build()
+
+        birthdayPicker.addOnPositiveButtonClickListener {
+            birthday.setText(birthdayPicker.headerText.toString())
+        }
+
+        birthday.setOnFocusChangeListener  {view, hasFocus ->
+            if (hasFocus){
+                birthdayPicker.show(supportFragmentManager,"BIRTHDAY_PICKER")
+            }else{
+                birthdayPicker.dismiss()
+            }        }
 
     }
     private fun AddBaby(babyName : String,birthday: String)
@@ -135,7 +132,7 @@ class AddBabyActivity : AppCompatActivity() {
 
 
                 } else {
-                    //babyList.add(Baby("wafa","21/11/2022","","ines.said@esprit.tn"))
+
                     Toast.makeText(this@AddBabyActivity, "Error", Toast.LENGTH_SHORT)
                         .show()
                 }
