@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import tn.esprit.front.R
 import tn.esprit.front.Ui.Home
 import tn.esprit.front.models.PlayList
@@ -19,15 +20,18 @@ class PlayListViewAdapter (val PlayList: MutableList<PlayList>) : RecyclerView.A
     override fun onBindViewHolder(holder: PlayListViewHolder, position: Int) {
 
         val name = PlayList[position].name
+        val cover = PlayList[position].cover
 
 
-        holder.playlistCover.setImageResource(PlayList[position].cover!!)
+        Picasso.with(holder.itemView.context).load(cover).into(holder.playlistCover)
         holder.playlistName.text = name
 
 
         holder.itemView.setOnClickListener{
             val intent = Intent(holder.itemView.context, Full_PlayList_Activity::class.java)
             intent.apply {
+                putExtra("playlistname", name)
+                putExtra("playlistcover", cover)
             }
             holder.itemView.context.startActivity(intent)
         }

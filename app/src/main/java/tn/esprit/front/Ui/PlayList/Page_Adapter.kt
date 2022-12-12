@@ -16,7 +16,7 @@ class Page_Adapter (fm: FragmentManager) : FragmentPagerAdapter(fm) {
                 return Playlist()
             }
             1 -> {
-                return fav()
+                return Playlist()
             }
             else -> {
                 return Playlist()
@@ -30,7 +30,7 @@ class Page_Adapter (fm: FragmentManager) : FragmentPagerAdapter(fm) {
                 return "Categories"
             }
             1 -> {
-                return "favorites"
+                return "playlist"
             }
         }
         return super.getPageTitle(position)

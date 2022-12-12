@@ -5,56 +5,78 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.models.Tracks
+import tn.esprit.front.viewmodels.musicApi
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [fav.newInstance] factory method to
- * create an instance of this fragment.
- */
 class fav : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    lateinit var recylcersong: RecyclerView
+    lateinit var recylcersongAdapter: favouritsong_adapter
+    var tracks: ArrayList<Tracks> = ArrayList()
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fav, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment fav.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            fav().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        val view = inflater.inflate(R.layout.fragment_fav, container, false)
+        val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+        recylcersong = view.findViewById(R.id.favorite_recycler)
+        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh)
+        val map: HashMap<String, String> = HashMap()
+        var services = musicApi.create()
+
+        map["token"] = token
+
+        services.getFavoritesTracks(map)!!.enqueue(object : Callback<MutableList<Tracks>> {
+            override fun onResponse(call: Call<MutableList<Tracks>>, response: Response<MutableList<Tracks>>) {
+                if (response.code()==200) {
+
+
+                    val tracksList = response.body() as MutableList<Tracks>
+                    // update the tracks list
+                    tracks.clear()
+                    tracks.addAll(tracksList)
+                    recylcersongAdapter = favouritsong_adapter(tracks)
+                    recylcersong.adapter = recylcersongAdapter
+                    recylcersongAdapter.notifyDataSetChanged()
+                    recylcersong.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL, false)
+                }
+
+                else
+                {
+                    Toast.makeText(context, "error ", Toast.LENGTH_SHORT).show()
                 }
             }
+            override fun onFailure(call: Call<MutableList<Tracks>>, t: Throwable)
+            {
+                Toast.makeText(context, "error while getting the tracks", Toast.LENGTH_SHORT).show()
+            }
+        })
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = false
+            recylcersongAdapter.notifyDataSetChanged()
+        }
+        return  view
+
     }
+
+
 }

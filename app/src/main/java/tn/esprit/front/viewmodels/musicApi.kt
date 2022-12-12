@@ -17,24 +17,27 @@ interface musicApi
 {
     @GET("/media/getTracks")
     fun getTracks(): Call<MutableList<Tracks>>
-    @PUT("/media/list>ened")
-    fun countListened(@Body name: String):Call<Tracks>
-    @GET("/media/mostListened")
-    fun getMostListenedTracks (@Body user: User):Call<List<Tracks>>
+    @PUT("/media/listened")
+    fun countListened(@Body tracks: Tracks):Call<Tracks>
     @GET("/media/newest")
-    fun getNewestTracks (@Body user: User):Call<List<Tracks>>
-    @POST("/media/getTrackByName")
-    fun getTrackByName (@Body user: User):Call<Tracks>
+    fun getNewestTracks ():Call<MutableList<Tracks>>
+
+    @POST("/user/music/getFavoritesTracks")
+    fun getFavoritesTracks (@Body hashMap: HashMap<String, String>):Call<MutableList<Tracks>>
+    @POST("/user/music/getNextFavoritesTracks")
+    fun getNextFavoritesTracks(@Body hashMap: HashMap<String, String>):Call<Tracks>
+    @PUT("/user/music/removeFavoritesTrack")
+    fun removeFavoritesTrack(@Body hashMap: HashMap<String, String>):Call<Tracks>
 
     @POST("/user/music/addPlaylist")
     fun addPlayListToUser():Call<PlayList>
     @POST("/user/music/getPlaylists")
-    fun getPlaylists(@Body name: String):Call<List<PlayList>>
+    fun getPlaylists(@Body hashMap: HashMap<String, String>):Call<MutableList<PlayList>>
     @POST("/user/music/getPlaylistTracks")
     fun getPlaylistTracks (@Body user: User):Call<PlayList>
     @PUT("/user/music/addTrackToPlayList")
-    fun addTrackToPlayList (@Body user: User):Call<PlayList>
-    @DELETE("/user/music/deleteTrackfromPlaylist")
+    fun addTrackToPlayList (@Body hashMap: HashMap<String, String>):Call<PlayList>
+    @PUT("/user/music/deleteTrackfromPlaylist")
     fun deleteTrackfromPlaylist (@Body user: User):Call<PlayList>
 
 
@@ -44,7 +47,7 @@ interface musicApi
 
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://192.168.1.16:8080")
+                .baseUrl("http://10.0.2.2:8080")
                 .build()
 
             return retrofit.create(musicApi::class.java)

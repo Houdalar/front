@@ -15,7 +15,10 @@ class musicpageadapter (fm: FragmentManager) : FragmentPagerAdapter(fm) {
                 return Topmusic()
             }
             1 -> {
-                return Topmusic()
+                return newmusic()
+            }
+            2 -> {
+                return return fav()
             }
             else -> {
                 return Topmusic()
@@ -30,6 +33,9 @@ class musicpageadapter (fm: FragmentManager) : FragmentPagerAdapter(fm) {
             }
             1 -> {
                 return "new"
+            }
+            2 -> {
+                return "favorites"
             }
         }
         return super.getPageTitle(position)

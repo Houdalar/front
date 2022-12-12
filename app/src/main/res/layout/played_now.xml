@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_back"
-    app:layout_constraintDimensionRatio="1:1">
+    android:background="@drawable/gradient_back">
 
     <TextView
         android:id="@+id/song"
@@ -18,11 +17,11 @@
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.399"
-        app:layout_constraintStart_toEndOf="@+id/imageView6"
+        app:layout_constraintStart_toEndOf="@+id/back_to_music_home"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/back_to_music_home"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"

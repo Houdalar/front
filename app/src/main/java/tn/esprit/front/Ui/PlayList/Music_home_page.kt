@@ -18,11 +18,15 @@ class music_home_page : AppCompatActivity() {
         musicviewPager.adapter = musicpageadapter(supportFragmentManager)
 
 
+
         val categories = findViewById<TabLayout>(R.id.categories)
         categories.setupWithViewPager(playlistviewPager)
 
         val newTop = findViewById<TabLayout>(R.id.top_new)
         newTop.setupWithViewPager(musicviewPager)
 
+
+
     }
+
 }

@@ -1,28 +1,43 @@
 package tn.esprit.front.Ui.PlayList
 
-import android.media.AudioManager
+import android.content.SharedPreferences
 import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.os.Message
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.net.toUri
-import com.bumptech.glide.Glide
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.slider.Slider
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.models.Tracks
+import tn.esprit.front.viewmodels.musicApi
+import kotlin.concurrent.thread
+import kotlin.math.log
 
 
 class song_detail : AppCompatActivity() {
-    lateinit var songName : TextView
-    lateinit var songArtist : TextView
-    lateinit var songCover : ImageView
-    lateinit var play : ImageView
+    lateinit var songName: TextView
+    lateinit var songArtist: TextView
+    lateinit var songCover: ImageView
+    lateinit var play: ImageView
     lateinit var duration: TextView
+    lateinit var progress: TextView
     lateinit var progressbar: Slider
     lateinit var mediaPlayer: MediaPlayer
+    lateinit var sharedPreferences: SharedPreferences
+    var isPlaying :  Boolean = false
+    lateinit var playNext : ImageView
+    lateinit var back : ImageView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,113 +48,191 @@ class song_detail : AppCompatActivity() {
         songCover = findViewById(R.id.music_cover)
         play = findViewById(R.id.imageView7)
         duration = findViewById(R.id.end_time)
+        progress = findViewById(R.id.progress_time)
         progressbar = findViewById(R.id.slider)
+        back = findViewById(R.id.back_to_music_home)
 
-        mediaPlayer = MediaPlayer()
+        playNext = findViewById(R.id.imageView8)
+        val map: HashMap<String, String> = HashMap()
+        val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+        map["token"]=token
+        sharedPreferences = this.getSharedPreferences("PREF_NAME", 0)
         takeData()
+        mediaPlayer = MediaPlayer()
+        var url = intent.getStringExtra("songUrl")
+        var id = intent.getStringExtra("songId")
 
-        play.tag = "play"
-
-        play.setOnClickListener{
-            if (play.tag == "play"){
-                play.setImageResource(R.drawable.ic_baseline_pause_24)
-
-            // on below line we are creating a variable for our audio url
-            var url =intent.getStringExtra("songUrl")
-            //var audioUrl = "http://172.16.1.34:8080/media/music/aot.mp3"
-            // on below line we are setting audio stream
-            // type as stream music on below line.
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-
-            // on below line we are running a try
-            // and catch block for our media player.
-            try {
-                // on below line we are setting audio
-                // source as audio url on below line.
-                mediaPlayer.setDataSource(url)
-
-                // on below line we are
-                // preparing our media player.
-                mediaPlayer.prepare()
-
-                // on below line we are
-                // starting our media player.
-                mediaPlayer.start()
-
-            } catch (e: Exception) {
-
-                // on below line we are handling our exception.
-                e.printStackTrace()
-            }
-            // on below line we are displaying a toast message as audio player.
-            Toast.makeText(applicationContext, "Audio started playing..", Toast.LENGTH_SHORT).show()
-                play.tag = "pause"
-
-            }else{
-                play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-                if (mediaPlayer.isPlaying) {
-                    // if media player is playing we
-                    // are stopping it on below line.
-                    mediaPlayer.stop()
-
-                    // on below line we are resetting
-                    // our media player.
-                    mediaPlayer.reset()
-
-                    // on below line we are calling
-                    // release to release our media player.
-                    mediaPlayer.release()
-                    play.tag = "play"
-
-                    // on below line we are displaying a toast message to pause audio/
-                    Toast.makeText(applicationContext, "Audio has been  paused..", Toast.LENGTH_SHORT)
-                        .show()
+        mediaPlayer.setDataSource(url)
+        mediaPlayer.prepare()
 
 
-                } else {
-                    // if audio player is not displaying we are displaying below toast message
-                    Toast.makeText(applicationContext, "Audio not played..", Toast.LENGTH_SHORT).show()
+        val services = musicApi.create()
+
+       back.setOnClickListener {
+            finish()
+        }
+
+
+        playNext.setOnClickListener {
+
+            map["currentTrack"] = id.toString()
+             // get the next song
+            Log.e("id",id.toString())
+            services.getNextFavoritesTracks(map).enqueue(object : Callback<Tracks> {
+                override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                    if (response.isSuccessful) {
+                        val track = response.body()
+                        id = track?._id
+                        songName.text = track?.name
+                        songArtist.text = track?.artist
+                        Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                        //update the progress bar
+                        progressbar.value = 0f
+                        progress.text = "00:00"
+                        mediaPlayer.stop()
+                        mediaPlayer.reset()
+                        mediaPlayer.setDataSource(track?.url)
+                        mediaPlayer.prepare()
+                        mediaPlayer.start()
+                        playAudio()
+                    }
+                    else{
+                        Toast.makeText(this@song_detail, "no response", Toast.LENGTH_SHORT).show()
+                    }
                 }
 
-
-            }
+                override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                    Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                }
+            })
 
         }
 
 
-        /*if (play.tag == "play") {
-            play.setImageResource(R.drawable.ic_baseline_pause_24)
-            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC)
-           // mediaPlayer.setDataSource(intent.getStringExtra("songUrl"))
-            //val url = intent.getStringExtra("songUrl")
-           var url = "http://localhost:8080/media/music/aot.mp3"
-            mediaPlayer.setDataSource(url)
-            mediaPlayer.prepare()
-            mediaPlayer.start()
-            play.tag = "pause"
-        } else {
-            play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+        play.setOnClickListener { playAudio() }
+    }
+
+
+
+
+
+
+        private fun takeData()
+        {
+            val name = intent.getStringExtra("songName")
+            val artist = intent.getStringExtra("songArtist")
+            val cover = intent.getStringExtra("songCover")
+            val url = intent.getStringExtra("songUrl")
+            val id = intent.getStringExtra("songId")
+
+
+            songName.text = name
+            songArtist.text = artist
+            Picasso.with(this).load(cover).into(songCover)
+            // mediaPlayer.setDataSource(url)
+        }
+  // refresh the activity
+        override fun onResume() {
+            super.onResume()
             if (mediaPlayer.isPlaying) {
-                mediaPlayer.pause()
-                play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-            } else {
-                mediaPlayer.start()
                 play.setImageResource(R.drawable.ic_baseline_pause_24)
+                play.tag = "pause"
+            } else {
+                play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+                play.tag = "play"
             }
-            play.tag = "play"
-        }*/
+        }
+
+   // createTimeLabel function to convert the time in milliseconds to minutes and seconds
+        fun createTimeLabel(time: Int): String {
+            var timeLabel = ""
+            val min = time / 1000 / 60
+            val sec = time / 1000 % 60
+
+            timeLabel = "$min:"
+            if (sec < 10) timeLabel += "0"
+            timeLabel += sec
+
+            return timeLabel
+        }
+
+        override fun onDestroy() {
+            super.onDestroy()
+            mediaPlayer.stop()
+            mediaPlayer.release()
+        }
+    fun updateSeekBar(){
+        val handler = Handler()
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                try {
+                    progressbar.valueFrom = 0f
+                    progressbar.valueTo = mediaPlayer.duration.toFloat()
+                    //progressbar.value = mediaPlayer.currentPosition.toFloat()
+                    handler.postDelayed(this, 1000)
+                } catch (e: Exception) {
+                    progressbar.value = 0f
+                }
+            }
+        }, 0)
     }
-    private fun takeData() {
-        val name = intent.getStringExtra("songName")
-        val artist = intent.getStringExtra("songArtist")
-        val cover = intent.getStringExtra("songCover")
+    fun playAudio() {
+        val dur = mediaPlayer.duration
+        // set the duration of the audio in the text view in minutes and seconds
+        duration.text = createTimeLabel(dur)
+        if (isPlaying)
+        {
+            mediaPlayer.pause()
+            play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+            isPlaying = false
 
+        }
+        else
+        {
+            mediaPlayer.start()
+            play.setImageResource(R.drawable.ic_baseline_pause_24)
+            isPlaying = true
 
-        songName.text = name
-        songArtist.text = artist
-        Picasso.with(this).load(cover).into(songCover)
+            progressbar.valueTo = mediaPlayer.duration.toFloat()
+            progressbar.addOnSliderTouchListener(object :
+                Slider.OnSliderTouchListener {
+                override fun onStartTrackingTouch(slider: Slider) {
+                    mediaPlayer.pause()
+
+                }
+
+                override fun onStopTrackingTouch(slider: Slider) {
+                    mediaPlayer.seekTo(slider.value.toInt())
+                    mediaPlayer.start()
+                }})
+        }
+       Thread(Runnable {
+            while (mediaPlayer != null) {
+                try {
+                    progressbar.value = mediaPlayer.currentPosition.toFloat()
+                    var msg = Message()
+                    msg.what = mediaPlayer.currentPosition
+                    val handlerThread = HandlerThread("handlerThread")
+                    handlerThread.start()
+                    Thread.sleep(1000)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }).start()
+        mediaPlayer.setOnCompletionListener {
+            play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+            isPlaying = false
+        }
+
 
     }
 
+
     }
+
+
+
+
+
 

@@ -15,14 +15,11 @@ data class Tracks (
     var listened: Int? = null,
     @SerializedName("date")
     var date: String? = null,
-    var token : String? = null,
+    var _id : String? = null,
+    @SerializedName("url")
     var url : String? = null
 
-)
-
-data class tracksResult (
-
-    @SerializedName("sponsors")
-    var tracks: MutableList<Tracks> ?= null
-
-    )
+) {
+    val size: Int
+        get() = 0
+}

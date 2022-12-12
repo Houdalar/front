@@ -19,7 +19,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class Topmusic : Fragment() {
+class newmusic : Fragment() {
     lateinit var recylcersong: RecyclerView
     lateinit var recylcersongAdapter: songviewadapter
     var tracks: ArrayList<Tracks> = ArrayList()
@@ -45,7 +45,7 @@ class Topmusic : Fragment() {
 
 
 
-        services.getTracks()!!.enqueue(object : Callback<MutableList<Tracks>> {
+        services.getNewestTracks()!!.enqueue(object : Callback<MutableList<Tracks>> {
             override fun onResponse(
                 call: Call<MutableList<Tracks>>,
                 response: Response<MutableList<Tracks>>
