@@ -20,6 +20,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Ui.PlayList.music_home_page
 import tn.esprit.front.Views.*
 import tn.esprit.front.Views.Activities.Home.BabyList.BabyAdapter
 import tn.esprit.front.Views.Activities.Profile.ProfileActivity
@@ -106,7 +107,7 @@ class DrawerActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
                 R.id.nav_music -> {
-                    val intent= Intent(this, MusicActivity::class.java)
+                    val intent= Intent(this, music_home_page::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_Audiobooks -> {
