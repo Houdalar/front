@@ -26,6 +26,8 @@ interface musicApi
     fun getFavoritesTracks (@Body hashMap: HashMap<String, String>):Call<MutableList<Tracks>>
     @POST("/user/music/getNextFavoritesTracks")
     fun getNextFavoritesTracks(@Body hashMap: HashMap<String, String>):Call<Tracks>
+    @POST("/user/music/getPreviousFavoritesTracks")
+    fun getPreviousFavoritesTracks(@Body hashMap: HashMap<String, String>):Call<Tracks>
     @PUT("/user/music/removeFavoritesTrack")
     fun removeFavoritesTrack(@Body hashMap: HashMap<String, String>):Call<Tracks>
 

@@ -36,6 +36,7 @@ class song_detail : AppCompatActivity() {
     lateinit var sharedPreferences: SharedPreferences
     var isPlaying :  Boolean = false
     lateinit var playNext : ImageView
+    lateinit var playPrevious : ImageView
     lateinit var back : ImageView
 
 
@@ -53,6 +54,8 @@ class song_detail : AppCompatActivity() {
         back = findViewById(R.id.back_to_music_home)
 
         playNext = findViewById(R.id.imageView8)
+        playPrevious = findViewById(R.id.imageView9)
+
         val map: HashMap<String, String> = HashMap()
         val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
         map["token"]=token
@@ -106,6 +109,38 @@ class song_detail : AppCompatActivity() {
                 }
             })
 
+        }
+
+        playPrevious.setOnClickListener {
+            map["currentTrack"] = id.toString()
+            // get the previous song
+            services.getPreviousFavoritesTracks(map).enqueue(object : Callback<Tracks> {
+                override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                    if (response.isSuccessful) {
+                        val track = response.body()
+                        id = track?._id
+                        songName.text = track?.name
+                        songArtist.text = track?.artist
+                        Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                        //update the progress bar
+                        progressbar.value = 0f
+                        progress.text = "00:00"
+                        mediaPlayer.stop()
+                        mediaPlayer.reset()
+                        mediaPlayer.setDataSource(track?.url)
+                        mediaPlayer.prepare()
+                        mediaPlayer.start()
+                        playAudio()
+                    }
+                    else{
+                        Toast.makeText(this@song_detail, "no response", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                    Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                }
+            })
         }
 
 
