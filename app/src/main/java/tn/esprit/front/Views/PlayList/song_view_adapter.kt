@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.gson.reflect.TypeToken.get
@@ -20,6 +21,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
@@ -87,7 +89,9 @@ class songviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<s
         holder.itemView.setOnLongClickListener(View.OnLongClickListener {
             val map : HashMap<String, String> = HashMap()
             //map.put("trackid", tracks[position]._id.toString())
-            map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+            val mSharedPreferences = holder.itemView.context.getSharedPreferences("PREF_NAME", 0)
+            val token=mSharedPreferences.getString(TOKEN,"").toString()
+            map["token"]=token
             val builder = AlertDialog.Builder(holder.itemView.context)
             builder.setTitle("Choose an option")
             val options = arrayOf("Add to playlist","Share","cancel")

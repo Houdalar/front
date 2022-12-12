@@ -1,5 +1,6 @@
 package tn.esprit.front.Ui.PlayList
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
@@ -20,6 +22,7 @@ import tn.esprit.front.viewmodels.musicApi
 class Playlist : Fragment() {
     lateinit var recylcerPlaylist: RecyclerView
     lateinit var recylcerPlaylistAdapter: PlayListViewAdapter
+    lateinit var mSharedPreferences: SharedPreferences
     var tracks: ArrayList<PlayList> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +38,11 @@ class Playlist : Fragment() {
         val view = inflater.inflate(R.layout.fragment_playlist, container, false)
         recylcerPlaylist = view.findViewById(R.id.recyclerplaylist)
         val map: HashMap<String, String> = HashMap()
-        val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+
+        mSharedPreferences = this.requireActivity().getSharedPreferences("PREF_NAME", 0)
+        val token=mSharedPreferences.getString(TOKEN,"").toString()
         map["token"]=token
+
         var services = musicApi.create()
 
 

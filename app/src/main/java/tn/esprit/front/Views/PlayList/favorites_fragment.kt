@@ -1,5 +1,6 @@
 package tn.esprit.front.Ui.PlayList
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
 
@@ -22,7 +24,7 @@ class fav : Fragment() {
     lateinit var recylcersongAdapter: favouritsong_adapter
     var tracks: ArrayList<Tracks> = ArrayList()
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
+    lateinit var mSharedPreferences: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +39,11 @@ class fav : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_fav, container, false)
-        val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
+
+        mSharedPreferences = this.requireActivity().getSharedPreferences("PREF_NAME", 0)
+
+        val token=mSharedPreferences.getString(TOKEN,"").toString()
+
         recylcersong = view.findViewById(R.id.favorite_recycler)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh)
         val map: HashMap<String, String> = HashMap()
