@@ -1,12 +1,12 @@
 package tn.esprit.front.Ui.PlayList
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -36,6 +36,7 @@ class fav : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        lateinit var sharedPreferences: SharedPreferences
         val view = inflater.inflate(R.layout.fragment_fav, container, false)
         val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
         recylcersong = view.findViewById(R.id.favorite_recycler)
@@ -54,6 +55,19 @@ class fav : Fragment() {
                     // update the tracks list
                     tracks.clear()
                     tracks.addAll(tracksList)
+                    // add the list to shared preferences
+                    sharedPreferences = requireActivity().getSharedPreferences("sharedPrefs", 0)
+                    val editor = sharedPreferences.edit()
+                    val set: MutableSet<String> = HashSet()
+                    set.addAll(tracksList.map { it.name })
+                    editor.putStringSet("favoriteTracks", set)
+                    editor.commit()
+                    println(set)
+                      //  editor.putStringSet("favoriteTracks", tracksList.map { it.name }.toSet())
+
+
+                   // editor.putString("favorites", tracks.toString())
+
                     recylcersongAdapter = favouritsong_adapter(tracks)
                     recylcersong.adapter = recylcersongAdapter
                     recylcersongAdapter.notifyDataSetChanged()

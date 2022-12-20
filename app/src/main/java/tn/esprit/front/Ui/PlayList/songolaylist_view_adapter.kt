@@ -1,8 +1,6 @@
 package tn.esprit.front.Ui.PlayList
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,9 +9,8 @@ import android.nfc.tech.NfcF.get
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -29,7 +26,7 @@ import tn.esprit.front.viewmodels.musicApi
 import java.lang.reflect.Array.get
 
 
-class songviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<songviewHolder>()  {
+class songplaylistviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<songviewHolder>()  {
     lateinit var sharedPreferences: SharedPreferences
     lateinit var mediaPlayer: MediaPlayer
     var isPlaying :  Boolean = false
@@ -98,8 +95,8 @@ class songviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<s
                 putExtra("songArtist", artist)
                 putExtra("songCover", tracks[position].cover)
                 putExtra("songUrl", tracks[position].url)
-                putExtra("tag", "top")
                 putExtra("songId", tracks[position]._id)
+                putExtra("tag", "playlist")
             }
             val service = musicApi.create()
             val tracks = Tracks(name = name)
@@ -173,64 +170,27 @@ class songviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<s
                                     val playlists = response.body()
                                     val builder = AlertDialog.Builder(holder.itemView.context)
                                     builder.setTitle("Choose a playlist")
-                                    val options = arrayOfNulls<String>(playlists!!.size+1)
+                                    val options = arrayOfNulls<String>(playlists!!.size)
                                     for (i in 0 until playlists.size) {
                                         options[i] = playlists[i].name
                                     }
-                                    options[playlists.size] = "create new playlist"
                                     val service = musicApi.create()
                                     map.put("trackid", tracks[position]._id.toString())
-                                    // if we select create new playlist open a dialog to enter the name of the playlist
-                                        map["name"] = playlists[which].name.toString()
-                                        builder.setItems(
-                                            options,
-                                            DialogInterface.OnClickListener { dialog, which ->
-                                                if(options[which]=="create new playlist")
-                                                {
-                                                   val intent = Intent(holder.itemView.context, addplaylist::class.java)
-                                                    intent.apply {
-                                                        putExtra("songName", name)
-                                                        putExtra("songArtist", artist)
-                                                        putExtra("songCover", tracks[position].cover)
-                                                        putExtra("songUrl", tracks[position].url)
-                                                        putExtra("tag", "top")
-                                                        putExtra("songId", tracks[position]._id)
-                                                    }
-                                                    holder.itemView.context.startActivity(intent)
-
+                                    map["name"] = playlists[which].name.toString()
+                                    builder.setItems(options, DialogInterface.OnClickListener { dialog, which ->
+                                         service.addTrackToPlayList(map).enqueue(object : Callback<PlayList> {
+                                            override fun onResponse(call: Call<PlayList>, response: Response<PlayList>) {
+                                                if (response.isSuccessful) {
+                                                    Toast.makeText(holder.itemView.context, "Song added to playlist", Toast.LENGTH_SHORT).show()
                                                 }
-                                                else
-                                                {
-                                                service.addTrackToPlayList(map)
-                                                    .enqueue(object : Callback<PlayList> {
-                                                        override fun onResponse(
-                                                            call: Call<PlayList>,
-                                                            response: Response<PlayList>
-                                                        ) {
-                                                            if (response.isSuccessful) {
-                                                                Toast.makeText(
-                                                                    holder.itemView.context,
-                                                                    "Song added to playlist",
-                                                                    Toast.LENGTH_SHORT
-                                                                ).show()
-                                                            }
-                                                        }
-
-                                                        override fun onFailure(
-                                                            call: Call<PlayList>,
-                                                            t: Throwable
-                                                        ) {
-                                                            Toast.makeText(
-                                                                holder.itemView.context,
-                                                                "Error while adding the track",
-                                                                Toast.LENGTH_SHORT
-                                                            ).show()
-                                                        }
-                                                    })}
-                                            })
-                                        builder.show()
-                                    }
-
+                                            }
+                                            override fun onFailure(call: Call<PlayList>, t: Throwable) {
+                                                Toast.makeText(holder.itemView.context, "Error while adding the track", Toast.LENGTH_SHORT).show()
+                                            }
+                                        })
+                                    })
+                                    builder.show()
+                                }
                             }
                             override fun onFailure(call: Call<MutableList<PlayList>>, t: Throwable) {
                                 Toast.makeText(holder.itemView.context, "Error", Toast.LENGTH_SHORT).show()

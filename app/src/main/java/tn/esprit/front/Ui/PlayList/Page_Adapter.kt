@@ -7,19 +7,22 @@ import androidx.fragment.app.FragmentPagerAdapter
 
 class Page_Adapter (fm: FragmentManager) : FragmentPagerAdapter(fm) {
     override fun getCount(): Int {
-        return 3;
+        return 2;
     }
 
     override fun getItem(position: Int): Fragment {
         when(position) {
-            0 -> {
+            0 ->
+            {
+                return Categories()
+            }
+            1 ->
+            {
                 return Playlist()
             }
-            1 -> {
-                return Playlist()
-            }
-            else -> {
-                return Playlist()
+            else ->
+            {
+                return Categories()
             }
         }
     }

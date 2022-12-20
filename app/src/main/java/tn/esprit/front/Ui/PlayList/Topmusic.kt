@@ -57,6 +57,9 @@ class Topmusic : Fragment() {
                     tracks.clear()
                     tracks.addAll(tracksList)
 
+
+                    recylcersong.tag = "topmusic"
+
                     recylcersongAdapter = songviewadapter(tracks)
                     recylcersongAdapter.notifyDataSetChanged()
                     recylcersong.adapter = recylcersongAdapter

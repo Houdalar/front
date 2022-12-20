@@ -8,19 +8,16 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Part
 import tn.esprit.front.R
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
-import java.io.File
 
 
-class Playlist : Fragment() {
+class Categories : Fragment() {
     lateinit var recylcerPlaylist: RecyclerView
     lateinit var recylcerPlaylistAdapter: PlayListViewAdapter
     var tracks: ArrayList<PlayList> = ArrayList()
@@ -45,7 +42,7 @@ class Playlist : Fragment() {
 
 
 
-        services.getPlaylists(map)!!.enqueue(object : Callback<MutableList<PlayList>> {
+        services.getMediaCategory()!!.enqueue(object : Callback<MutableList<PlayList>> {
             override fun onResponse(
                 call: Call<MutableList<PlayList>>,
                 response: Response<MutableList<PlayList>>
@@ -56,7 +53,6 @@ class Playlist : Fragment() {
                     val playList = response.body() as MutableList<PlayList>
                     tracks.clear()
                     tracks.addAll(playList)
-
 
 
                     recylcerPlaylistAdapter = PlayListViewAdapter(tracks)
@@ -73,11 +69,6 @@ class Playlist : Fragment() {
             }
 
         })
-
-//select the image from the gallery and upload it to the server
-//        val intent = Intent(Intent.ACTION_PICK)
-//        intent.type = "image/*"
-//        startActivityForResult(intent, 0)
 
 
         return view

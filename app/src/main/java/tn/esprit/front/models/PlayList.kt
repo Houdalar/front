@@ -12,8 +12,11 @@ data class PlayList (
     var cover: String? = null,
     @SerializedName("owner")
     var owner: String? = null,
-    var id: String? = null,
+    var _id: String? = null,
     @SerializedName("tracks")
-    var tracks: List<Tracks>? = null
+    // a list ob object id mongoose
+    var tracks: List<String>? = null,
+
+
 
     )

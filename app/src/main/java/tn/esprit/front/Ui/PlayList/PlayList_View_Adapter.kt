@@ -27,11 +27,14 @@ class PlayListViewAdapter (val PlayList: MutableList<PlayList>) : RecyclerView.A
         holder.playlistName.text = name
 
 
+
         holder.itemView.setOnClickListener{
             val intent = Intent(holder.itemView.context, Full_PlayList_Activity::class.java)
             intent.apply {
                 putExtra("playlistname", name)
                 putExtra("playlistcover", cover)
+                putExtra("playlistid", PlayList[position]._id)
+                putExtra("tag", "playlist")
             }
             holder.itemView.context.startActivity(intent)
         }

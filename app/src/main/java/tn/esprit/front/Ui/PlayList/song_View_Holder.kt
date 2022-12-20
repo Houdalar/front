@@ -12,12 +12,15 @@ class songviewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)
      var songcover : ImageView
      var songArtist : TextView
      var songName : TextView
-
+     var fav : ImageView
+     var play : ImageView
 
     init {
         songcover = itemView.findViewById<ImageView>(R.id.ivTopMusic)
         songArtist= itemView.findViewById<TextView>(R.id.songauthor)
         songName= itemView.findViewById<TextView>(R.id.track_name)
+        fav = itemView.findViewById<ImageView>(R.id.imageView13)
+        play = itemView.findViewById<ImageView>(R.id.play)
 
     }
 

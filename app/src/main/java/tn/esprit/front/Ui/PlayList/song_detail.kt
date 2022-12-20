@@ -1,11 +1,9 @@
 package tn.esprit.front.Ui.PlayList
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
-import android.os.Bundle
-import android.os.Handler
-import android.os.HandlerThread
-import android.os.Message
+import android.os.*
 import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,6 +36,7 @@ class song_detail : AppCompatActivity() {
     lateinit var playNext : ImageView
     lateinit var playPrevious : ImageView
     lateinit var back : ImageView
+    lateinit var fav : ImageView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +51,8 @@ class song_detail : AppCompatActivity() {
         progress = findViewById(R.id.progress_time)
         progressbar = findViewById(R.id.slider)
         back = findViewById(R.id.back_to_music_home)
+        fav = findViewById(R.id.imageView4)
+        fav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
 
         playNext = findViewById(R.id.imageView8)
         playPrevious = findViewById(R.id.imageView9)
@@ -69,19 +70,146 @@ class song_detail : AppCompatActivity() {
         mediaPlayer.prepare()
 
 
+
         val services = musicApi.create()
 
+        fav.setOnClickListener(){
+            services.addFavoritesTrack(map).enqueue(object : Callback<Tracks> {
+                override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                    if (response.isSuccessful) {
+                        fav.setImageResource(R.drawable.ic_baseline_favorite_24)
+                        Toast.makeText(this@song_detail, "Added to your favorites", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                    Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+
        back.setOnClickListener {
-            finish()
+          finish()
+
+        }
+
+      //updae the progress text
+        thread(start = true) {
+            while (true) {
+                if (mediaPlayer.isPlaying) {
+                    val current = mediaPlayer.currentPosition
+                    val total = mediaPlayer.duration
+                    val currentMin = current / 1000 / 60
+                    val currentSec = current / 1000 % 60
+                    val totalMin = total / 1000 / 60
+                    val totalSec = total / 1000 % 60
+                    val currentText = String.format("%02d:%02d", currentMin, currentSec)
+                    runOnUiThread {
+                        progress.text = currentText
+
+                    }
+                    Thread.sleep(1000)
+                }
+            }
         }
 
 
         playNext.setOnClickListener {
 
             map["currentTrack"] = id.toString()
-             // get the next song
-            Log.e("id",id.toString())
-            services.getNextFavoritesTracks(map).enqueue(object : Callback<Tracks> {
+            // get the next song
+            Log.e("id", id.toString())
+            val tag = intent.getStringExtra("tag")
+            if (tag == "fav") {
+                services.getNextFavoritesTracks(map).enqueue(object : Callback<Tracks> {
+                    override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                        if (response.isSuccessful) {
+                            val track = response.body()
+                            id = track?._id
+                            songName.text = track?.name
+                            songArtist.text = track?.artist
+                            Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                            //update the progress bar
+                            progressbar.value = 0f
+                            progress.text = "00:00"
+                            mediaPlayer.stop()
+                            mediaPlayer.reset()
+                            mediaPlayer.setDataSource(track?.url)
+                            mediaPlayer.prepare()
+                            mediaPlayer.start()
+                            playAudio()
+                        } else {
+                            Toast.makeText(this@song_detail, "no response", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                        Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            } else if (tag == "top") {
+                services.getNextSongtop(map).enqueue(object : Callback<Tracks> {
+                    override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                        if (response.isSuccessful) {
+                            val track = response.body()
+                            id = track?._id
+                            songName.text = track?.name
+                            songArtist.text = track?.artist
+                            Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                            //update the progress bar
+                            progressbar.value = 0f
+                            progress.text = "00:00"
+                            mediaPlayer.stop()
+                            mediaPlayer.reset()
+                            mediaPlayer.setDataSource(track?.url)
+                            mediaPlayer.prepare()
+                            mediaPlayer.start()
+                            playAudio()
+                        } else {
+                            Toast.makeText(this@song_detail, "no response", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                        Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            } else if (tag == "new") {
+                services.getNextSongnew(map).enqueue(object : Callback<Tracks> {
+                    override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                        if (response.isSuccessful) {
+                            val track = response.body()
+                            id = track?._id
+                            songName.text = track?.name
+                            songArtist.text = track?.artist
+                            Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                            //update the progress bar
+                            progressbar.value = 0f
+                            progress.text = "00:00"
+                            mediaPlayer.stop()
+                            mediaPlayer.reset()
+                            mediaPlayer.setDataSource(track?.url)
+                            mediaPlayer.prepare()
+                            mediaPlayer.start()
+                            playAudio()
+                        } else {
+                            Toast.makeText(this@song_detail, "no response", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                        Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+        }
+
+        playPrevious.setOnClickListener {
+            map["currentTrack"] = id.toString()
+            services.getPreviousFavoritesTracks(map).enqueue(object : Callback<Tracks> {
                 override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
                     if (response.isSuccessful) {
                         val track = response.body()
@@ -108,13 +236,12 @@ class song_detail : AppCompatActivity() {
                     Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
                 }
             })
-
         }
 
-        playPrevious.setOnClickListener {
+        mediaPlayer.setOnCompletionListener {
+            //go to the next song
             map["currentTrack"] = id.toString()
-            // get the previous song
-            services.getPreviousFavoritesTracks(map).enqueue(object : Callback<Tracks> {
+            services.getNextFavoritesTracks(map).enqueue(object : Callback<Tracks> {
                 override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
                     if (response.isSuccessful) {
                         val track = response.body()
@@ -196,21 +323,7 @@ class song_detail : AppCompatActivity() {
             mediaPlayer.stop()
             mediaPlayer.release()
         }
-    fun updateSeekBar(){
-        val handler = Handler()
-        handler.postDelayed(object : Runnable {
-            override fun run() {
-                try {
-                    progressbar.valueFrom = 0f
-                    progressbar.valueTo = mediaPlayer.duration.toFloat()
-                    //progressbar.value = mediaPlayer.currentPosition.toFloat()
-                    handler.postDelayed(this, 1000)
-                } catch (e: Exception) {
-                    progressbar.value = 0f
-                }
-            }
-        }, 0)
-    }
+
     fun playAudio() {
         val dur = mediaPlayer.duration
         // set the duration of the audio in the text view in minutes and seconds
@@ -229,6 +342,7 @@ class song_detail : AppCompatActivity() {
             isPlaying = true
 
             progressbar.valueTo = mediaPlayer.duration.toFloat()
+
             progressbar.addOnSliderTouchListener(object :
                 Slider.OnSliderTouchListener {
                 override fun onStartTrackingTouch(slider: Slider) {
@@ -239,12 +353,14 @@ class song_detail : AppCompatActivity() {
                 override fun onStopTrackingTouch(slider: Slider) {
                     mediaPlayer.seekTo(slider.value.toInt())
                     mediaPlayer.start()
+
                 }})
         }
        Thread(Runnable {
             while (mediaPlayer != null) {
                 try {
                     progressbar.value = mediaPlayer.currentPosition.toFloat()
+                    //create a thred to update the progress text view
                     var msg = Message()
                     msg.what = mediaPlayer.currentPosition
                     val handlerThread = HandlerThread("handlerThread")
@@ -255,11 +371,7 @@ class song_detail : AppCompatActivity() {
                 }
             }
         }).start()
-        mediaPlayer.setOnCompletionListener {
-            play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-            isPlaying = false
-        }
-
+        // update the progress text view in minutes and seconds
 
     }
 

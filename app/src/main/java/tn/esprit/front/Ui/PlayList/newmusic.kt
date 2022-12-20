@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 
 class newmusic : Fragment() {
     lateinit var recylcersong: RecyclerView
-    lateinit var recylcersongAdapter: songviewadapter
+    lateinit var recylcersongAdapter: songnewviewadapter
     var tracks: ArrayList<Tracks> = ArrayList()
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
@@ -57,7 +57,8 @@ class newmusic : Fragment() {
                     tracks.clear()
                     tracks.addAll(tracksList)
 
-                    recylcersongAdapter = songviewadapter(tracks)
+                    recylcersong.tag = "newmusic"
+                    recylcersongAdapter = songnewviewadapter(tracks)
                     recylcersongAdapter.notifyDataSetChanged()
                     recylcersong.adapter = recylcersongAdapter
                     recylcersong.layoutManager =

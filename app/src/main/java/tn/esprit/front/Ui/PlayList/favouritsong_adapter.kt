@@ -58,6 +58,7 @@ class favouritsong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adap
                 putExtra("songCover", tracks[position].cover)
                 putExtra("songUrl", tracks[position].url)
                 putExtra("songId", tracks[position]._id)
+                putExtra("tag", "fav")
             }
             holder.itemView.context.startActivity(intent)
             val service = musicApi.create()
