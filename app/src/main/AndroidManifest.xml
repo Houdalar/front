@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +17,33 @@
         android:theme="@style/Theme.Front"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Ui.AudioBooks.audioplayer"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Ui.AudioBooks.full_AudioBook"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Ui.AudioBooks.book_home_page"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".Ui.PlayList.addplaylist"
             android:exported="false">
@@ -32,13 +60,7 @@
         </activity>
         <activity
             android:name=".Ui.PlayList.music_home_page"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -74,19 +96,6 @@
         <activity
             android:name=".Ui.Account_verification_Activity"
             android:exported="true">
-
-            <!-- <intent-filter android:autoVerify="true"> -->
-            <!-- <action android:name="android.intent.action.VIEW"/> -->
-            <!-- <category android:name="android.intent.category.DEFAULT"/> -->
-            <!-- <category android:name="android.intent.category.BROWSABLE"/> -->
-
-
-            <!-- <data android:scheme="http" /> -->
-            <!-- <data android:scheme="https" /> -->
-
-
-            <!-- <data android:host="http://192.168.1.16:8080" /> -->
-            <!-- </intent-filter> -->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

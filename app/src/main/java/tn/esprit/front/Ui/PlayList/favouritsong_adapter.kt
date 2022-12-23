@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,7 +44,7 @@ class favouritsong_adapter (val tracks: MutableList<Tracks>) : RecyclerView.Adap
 
         holder.songName.text = name
         holder.songArtist.text = artist
-        Picasso.with(holder.itemView.context).load(cover).into(holder.songcover)
+        Glide.with(holder.itemView.context).load(cover).into(holder.songcover)
         mediaPlayer = MediaPlayer()
         mediaPlayer.setDataSource(tracks[position].url)
         mediaPlayer.prepare()

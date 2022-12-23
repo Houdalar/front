@@ -1,24 +1,17 @@
 package tn.esprit.front.Ui.PlayList
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.media.MediaPlayer
-import android.nfc.tech.NfcF.get
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.google.gson.reflect.TypeToken.get
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,7 +19,7 @@ import tn.esprit.front.R
 import tn.esprit.front.models.PlayList
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
-import java.lang.reflect.Array.get
+
 
 
 class songviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<songviewHolder>()  {
@@ -67,7 +60,8 @@ class songviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapter<s
         }
 
         holder.songArtist.text = artist
-        Picasso.with(holder.itemView.context).load(cover).into(holder.songcover)
+        Glide.with(holder.itemView.context).load(cover).into(holder.songcover)
+        
 
         //get the favorites song and set the heart icon
         sharedPreferences = holder.itemView.context.getSharedPreferences("sharedPrefs", 0)

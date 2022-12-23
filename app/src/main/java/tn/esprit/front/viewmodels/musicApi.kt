@@ -1,11 +1,15 @@
 package tn.esprit.front.viewmodels
 
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import tn.esprit.front.models.*
+import tn.esprit.front.models.PlayList
+import tn.esprit.front.models.Tracks
+import tn.esprit.front.models.User
 
 
 interface musicApi
@@ -37,8 +41,9 @@ interface musicApi
     @POST("/user/music/addFavoritesTrack")
     fun addFavoritesTrack(@Body hashMap: HashMap<String, String>):Call<Tracks>
 
+    @Multipart
     @POST("/user/music/addPlaylist")
-    fun addPlayListToUser(@Body hashMap: HashMap<String, String>):Call<PlayList>
+    fun addPlayListToUser(@Part cover: MultipartBody.Part, @Part name: MultipartBody.Part, @Part token: MultipartBody.Part ):Call<PlayList>
     @POST("/user/music/getPlaylists")
     fun getPlaylists(@Body hashMap: HashMap<String, String>):Call<MutableList<PlayList>>
     @POST("/user/music/getPlaylistTracks")

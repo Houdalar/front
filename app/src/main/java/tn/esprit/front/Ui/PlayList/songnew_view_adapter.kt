@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.google.gson.reflect.TypeToken.get
@@ -64,7 +65,7 @@ class songnewviewadapter (val tracks: MutableList<Tracks>) : RecyclerView.Adapte
         }
 
         holder.songArtist.text = artist
-        Picasso.with(holder.itemView.context).load(cover).into(holder.songcover)
+        Glide.with(holder.itemView.context).load(cover).into(holder.songcover)
 
         //get the favorites song and set the heart icon
         sharedPreferences = holder.itemView.context.getSharedPreferences("sharedPrefs", 0)

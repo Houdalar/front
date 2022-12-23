@@ -1,4 +1,4 @@
-package tn.esprit.front.Ui.PlayList
+package tn.esprit.front.Ui.AudioBooks
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -14,13 +14,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
-import tn.esprit.front.models.Tracks
+import tn.esprit.front.models.AudioBook
+import tn.esprit.front.viewmodels.AudioBookAPi
 import tn.esprit.front.viewmodels.musicApi
 
-class fav : Fragment() {
-    lateinit var recylcersong: RecyclerView
-    lateinit var recylcersongAdapter: favouritsong_adapter
-    var tracks: ArrayList<Tracks> = ArrayList()
+class bookshelf : Fragment() {
+    lateinit var booklistview: RecyclerView
+    lateinit var booklistviewAdapter: bookshelf_adapter
+    var booklist: ArrayList<AudioBook> = ArrayList()
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
 
@@ -38,30 +39,28 @@ class fav : Fragment() {
     ): View? {
 
         lateinit var sharedPreferences: SharedPreferences
-        val view = inflater.inflate(R.layout.fragment_fav, container, false)
+        val view = inflater.inflate(R.layout.fragment_bookshelf, container, false)
         val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
-        recylcersong = view.findViewById(R.id.favorite_recycler)
+        booklistview = view.findViewById(R.id.bookshelf)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh)
         val map: HashMap<String, String> = HashMap()
-        var services = musicApi.create()
+        var services = AudioBookAPi.create()
 
         map["token"] = token
 
-        services.getFavoritesTracks(map)!!.enqueue(object : Callback<MutableList<Tracks>> {
-            override fun onResponse(call: Call<MutableList<Tracks>>, response: Response<MutableList<Tracks>>) {
+        services.getFavoritesbooks(map)!!.enqueue(object : Callback<MutableList<AudioBook>> {
+            override fun onResponse(call: Call<MutableList<AudioBook>>, response: Response<MutableList<AudioBook>>) {
                 if (response.code()==200) {
 
 
-                    val tracksList = response.body() as MutableList<Tracks>
-                    // update the tracks list
-                    tracks.clear()
-                    tracks.addAll(tracksList)
+                    val List = response.body() as MutableList<AudioBook>
+                    println(List)
                     // add the list to shared preferences
                     sharedPreferences = requireActivity().getSharedPreferences("sharedPrefs", 0)
                     val editor = sharedPreferences.edit()
                     val set: MutableSet<String> = HashSet()
-                    set.addAll(tracksList.map { it.name })
-                    editor.putStringSet("favoriteTracks", set)
+                    set.addAll( List.map { it.bookTitle })
+                    editor.putStringSet("bookshelf", set)
                     editor.commit()
                     println(set)
                       //  editor.putStringSet("favoriteTracks", tracksList.map { it.name }.toSet())
@@ -69,10 +68,10 @@ class fav : Fragment() {
 
                    // editor.putString("favorites", tracks.toString())
 
-                    recylcersongAdapter = favouritsong_adapter(tracks)
-                    recylcersong.adapter = recylcersongAdapter
-                    recylcersongAdapter.notifyDataSetChanged()
-                    recylcersong.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL, false)
+                    booklistviewAdapter = bookshelf_adapter(List)
+                    booklistview.adapter = booklistviewAdapter
+                    booklistviewAdapter.notifyDataSetChanged()
+                    booklistview.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL, false)
                 }
 
                 else
@@ -80,14 +79,14 @@ class fav : Fragment() {
                     Toast.makeText(context, "error ", Toast.LENGTH_SHORT).show()
                 }
             }
-            override fun onFailure(call: Call<MutableList<Tracks>>, t: Throwable)
+            override fun onFailure(call: Call<MutableList<AudioBook>>, t: Throwable)
             {
                 Toast.makeText(context, "error while getting the tracks", Toast.LENGTH_SHORT).show()
             }
         })
         swipeRefreshLayout.setOnRefreshListener {
             swipeRefreshLayout.isRefreshing = false
-            recylcersongAdapter.notifyDataSetChanged()
+            booklistviewAdapter.notifyDataSetChanged()
         }
         return  view
 

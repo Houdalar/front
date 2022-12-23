@@ -10,8 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.android.material.slider.Slider
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -128,7 +128,7 @@ class song_detail : AppCompatActivity() {
                             id = track?._id
                             songName.text = track?.name
                             songArtist.text = track?.artist
-                            Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                            Glide.with(this@song_detail).load(track?.cover).into(songCover)
                             //update the progress bar
                             progressbar.value = 0f
                             progress.text = "00:00"
@@ -156,7 +156,7 @@ class song_detail : AppCompatActivity() {
                             id = track?._id
                             songName.text = track?.name
                             songArtist.text = track?.artist
-                            Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                            Glide.with(this@song_detail).load(track?.cover).into(songCover)
                             //update the progress bar
                             progressbar.value = 0f
                             progress.text = "00:00"
@@ -184,7 +184,7 @@ class song_detail : AppCompatActivity() {
                             id = track?._id
                             songName.text = track?.name
                             songArtist.text = track?.artist
-                            Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                            Glide.with(this@song_detail).load(track?.cover).into(songCover)
                             //update the progress bar
                             progressbar.value = 0f
                             progress.text = "00:00"
@@ -216,7 +216,7 @@ class song_detail : AppCompatActivity() {
                         id = track?._id
                         songName.text = track?.name
                         songArtist.text = track?.artist
-                        Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                        Glide.with(this@song_detail).load(track?.cover).into(songCover)
                         //update the progress bar
                         progressbar.value = 0f
                         progress.text = "00:00"
@@ -248,7 +248,7 @@ class song_detail : AppCompatActivity() {
                         id = track?._id
                         songName.text = track?.name
                         songArtist.text = track?.artist
-                        Picasso.with(this@song_detail).load(track?.cover).into(songCover)
+                        Glide.with(this@song_detail).load(track?.cover).into(songCover)
                         //update the progress bar
                         progressbar.value = 0f
                         progress.text = "00:00"
@@ -278,7 +278,6 @@ class song_detail : AppCompatActivity() {
 
 
 
-
         private fun takeData()
         {
             val name = intent.getStringExtra("songName")
@@ -290,7 +289,7 @@ class song_detail : AppCompatActivity() {
 
             songName.text = name
             songArtist.text = artist
-            Picasso.with(this).load(cover).into(songCover)
+            Glide.with(this).load(cover).into(songCover)
             // mediaPlayer.setDataSource(url)
         }
   // refresh the activity

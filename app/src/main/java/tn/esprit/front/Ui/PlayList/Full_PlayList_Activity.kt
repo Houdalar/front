@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.CornerFamily
 import com.squareup.picasso.Picasso
@@ -45,7 +46,7 @@ class Full_PlayList_Activity : AppCompatActivity() {
         supportActionBar?.hide()
         var url = intent.getStringExtra("songUrl")
         val cover = intent.getStringExtra("playlistcover")
-        Picasso.with(this@Full_PlayList_Activity).load(cover).into(playlistcover)
+        Glide.with(this@Full_PlayList_Activity).load(cover).into(playlistcover)
 
         var services = musicApi.create()
         val map = HashMap<String, String>()

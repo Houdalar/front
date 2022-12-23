@@ -4,7 +4,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+
 import tn.esprit.front.R
 import tn.esprit.front.Ui.Home
 import tn.esprit.front.models.PlayList
@@ -23,7 +24,7 @@ class PlayListViewAdapter (val PlayList: MutableList<PlayList>) : RecyclerView.A
         val cover = PlayList[position].cover
 
 
-        Picasso.with(holder.itemView.context).load(cover).into(holder.playlistCover)
+        Glide.with(holder.itemView.context).load(cover).into(holder.playlistCover)
         holder.playlistName.text = name
 
 

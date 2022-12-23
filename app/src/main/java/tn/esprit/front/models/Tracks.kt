@@ -19,6 +19,8 @@ data class Tracks (
     @SerializedName("url")
     var url : String? = null,
     var fav : Boolean? = null,
+    @SerializedName("category")
+    var category: String? = null,
 
 ) {
     val size: Int
