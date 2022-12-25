@@ -6,8 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.Query
-import tn.esprit.front.models.User
+import tn.esprit.front.models.*
 
 interface ApiInterface {
 
@@ -25,15 +24,23 @@ interface ApiInterface {
     fun resetPassword (@Body user: User):Call<User>
     @POST("/user/verifyCode")
     fun verifyCode (@Body user: User):Call<User>
+    @POST("/user/verifyEmail")
+    fun verifyEmail (@Body user: User):Call<User>
+
+
+
+
 
     companion object {
 
         fun create() : ApiInterface {
 
+            println("ApiInterface")
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://192.168.1.16:8080")
+                .baseUrl("http://10.0.2.2:8080")
                 .build()
+
 
             return retrofit.create(ApiInterface::class.java)
         }
