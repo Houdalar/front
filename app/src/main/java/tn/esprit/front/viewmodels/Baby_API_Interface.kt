@@ -1,15 +1,27 @@
 package tn.esprit.front.viewmodels
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import tn.esprit.front.models.*
 
 interface BabyAPIInterface {
+
+    @Multipart
     @POST("/user/baby/addBaby")
-    fun addBaby(@Body map : HashMap<String, String>) : Call<Baby>
+    fun addBaby(
+        //@Body map : HashMap<String, String>
+        @Part("babyName") babyName: String,
+        @Part("birthday") birthday: String,
+        @Part babyPic: MultipartBody.Part,
+        @Part("token") token: String,
+    ) : Call<Baby>
 
     @POST("user/baby/getbabylist")
     fun getBabyList(@Body map : HashMap<String, String> ) : Call<MutableList<Baby>>
@@ -49,7 +61,7 @@ interface BabyAPIInterface {
             println("Baby_API_Interface")
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://172.17.2.78:8080")
+                .baseUrl("http://192.168.1.16:8080")
                 .build()
 
 

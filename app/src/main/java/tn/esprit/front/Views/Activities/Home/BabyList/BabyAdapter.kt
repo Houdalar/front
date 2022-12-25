@@ -13,7 +13,6 @@ import tn.esprit.front.Views.Activities.Profile.ProfileActivity
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Baby
-import tn.esprit.front.viewmodels.ApiInterface
 
 class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyViewHolder>() {
 
@@ -28,11 +27,11 @@ class BabyAdapter(val babyList: MutableList<Baby>):RecyclerView.Adapter<BabyView
 
         val babyName = babyList[position].babyName
         val pic=babyList[position].babyPic
+
         Picasso.with(holder.itemView.context).load(pic).into(holder.babyPic)
         holder.babyName.text = babyName
-        //holder.babyPic.setImageResource(babyList[position].babyPic!!)
-        var mSharedPreferences: SharedPreferences =
-            holder.itemView.context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+
+        var mSharedPreferences: SharedPreferences = holder.itemView.context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
         holder.itemView.setOnClickListener {
             val intent = Intent(holder.itemView.context, ProfileActivity::class.java)

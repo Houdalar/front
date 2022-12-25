@@ -23,6 +23,7 @@ import tn.esprit.front.R
 import tn.esprit.front.Views.*
 import tn.esprit.front.Views.Activities.Home.BabyList.BabyAdapter
 import tn.esprit.front.Views.Activities.Profile.ProfileActivity
+import tn.esprit.front.Views.Activities.Signin.Login_Activity
 
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
@@ -84,8 +85,8 @@ class DrawerActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<MutableList<Baby>>, t: Throwable) {
-                Toast.makeText(this@DrawerActivity, "Error", Toast.LENGTH_SHORT)
-                    .show()
+                /*Toast.makeText(this@DrawerActivity, "failed drawer", Toast.LENGTH_SHORT)
+                    .show()*/
             }
         })
         recyclerBabyAdapter= BabyAdapter(babylist)
@@ -124,6 +125,8 @@ class DrawerActivity : AppCompatActivity() {
                     builder.setPositiveButton("Yes"){ dialogInterface, which ->
                         getSharedPreferences(PREF_NAME, MODE_PRIVATE).edit().clear().apply()
                         finish()
+                        val intent= Intent(this, Login_Activity::class.java)
+                        startActivity(intent)
                     }
                     builder.setNegativeButton("No"){dialogInterface, which ->
                         dialogInterface.dismiss()
