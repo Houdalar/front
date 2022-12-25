@@ -16,7 +16,6 @@ interface BabyAPIInterface {
     @Multipart
     @POST("/user/baby/addBaby")
     fun addBaby(
-        //@Body map : HashMap<String, String>
         @Part("babyName") babyName: String,
         @Part("birthday") birthday: String,
         @Part babyPic: MultipartBody.Part,
