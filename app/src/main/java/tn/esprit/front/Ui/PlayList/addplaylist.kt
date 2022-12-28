@@ -2,11 +2,13 @@ package tn.esprit.front.Ui.PlayList
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.ActivityResult
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 
@@ -18,18 +20,24 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
+import tn.esprit.front.Ui.PREF_NAME
 import tn.esprit.front.models.PlayList
+import tn.esprit.front.util.UploadRequestBody
+import tn.esprit.front.util.getFileName
 import tn.esprit.front.viewmodels.musicApi
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 
-class addplaylist : AppCompatActivity() {
+class addplaylist : AppCompatActivity(),UploadRequestBody.UploadCallback {
     lateinit var playlistname: EditText
     lateinit var playlistnameError: TextInputLayout
     lateinit var cover : ImageView
     lateinit var create : Button
     lateinit var cancel : Button
     private  var selectedImageUri: Uri?=null
+    lateinit var mSharedPreferences : SharedPreferences
     val services = musicApi.create()
     val token : String = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
     private val startForResultOpenGallery =
@@ -68,11 +76,6 @@ class addplaylist : AppCompatActivity() {
         //create playlist with the name and the cover image
         create.setOnClickListener(){
             createPlaylist()
-
-
-
-
-
         }
     }
 
@@ -92,20 +95,24 @@ class addplaylist : AppCompatActivity() {
         }
     }
 
-    private fun createPlaylist()
+        private fun createPlaylist()
     {
         //send all the name and the cover image in a multipartformdata
         if (validateName()) {
-            val name = playlistname.text.toString()
-            val file = File(selectedImageUri!!.path)
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            val body = MultipartBody.Part.createFormData("cover", file.name, requestFile)
-            println("body : $body")
-            val namebody = MultipartBody.Part.createFormData("name", name)
-            println("namebody : $namebody")
-            val tokenbody = MultipartBody.Part.createFormData("token", token)
-            println("tokenbody : $tokenbody")
-            services.addPlayListToUser(body,namebody,  tokenbody).enqueue(object :
+            var parcelFileDescriptor = contentResolver.openFileDescriptor(selectedImageUri!!,"r",null) ?: return
+            var inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+            val file= File(cacheDir,contentResolver.getFileName(selectedImageUri!!))
+            val outputStream = FileOutputStream(file)
+            inputStream.copyTo(outputStream)
+            val uploadRequestFile = UploadRequestBody(file,"image",this)
+            mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
+            //val token=mSharedPreferences.getString("token","")
+            val token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
+            val cover =MultipartBody.Part.createFormData("cover",file?.name,uploadRequestFile)
+            val name = MultipartBody.Part.createFormData("name",playlistname.text.toString())
+
+
+            services.addPlayListToUser(cover,name,token).enqueue(object :
                 Callback<PlayList> {
                 override fun onResponse(call: Call<PlayList>, response: Response<PlayList>) {
                     if (response.isSuccessful) {
@@ -119,5 +126,9 @@ class addplaylist : AppCompatActivity() {
                 }
             })
         }
+    }
+
+    override fun onProgressUpdate(pecentage: Int) {
+
     }
 }

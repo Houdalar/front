@@ -59,7 +59,7 @@ class bookshelf : Fragment() {
                     sharedPreferences = requireActivity().getSharedPreferences("sharedPrefs", 0)
                     val editor = sharedPreferences.edit()
                     val set: MutableSet<String> = HashSet()
-                    set.addAll( List.map { it.bookTitle })
+                    set.addAll( List.map { it.bookTitle?: "" })
                     editor.putStringSet("bookshelf", set)
                     editor.commit()
                     println(set)

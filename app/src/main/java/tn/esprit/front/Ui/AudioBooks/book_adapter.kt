@@ -39,7 +39,7 @@ class book_adapter (val books: MutableList<AudioBook>) : RecyclerView.Adapter<bo
 
         val cover = books[position].cover
         Glide.with(holder.itemView.context).load(cover).into(holder.bookcover)
-        println("rating is"+books[position].Rating)
+        println("id book is ${books[position].id}")
 
         holder.itemView.setOnClickListener {
 

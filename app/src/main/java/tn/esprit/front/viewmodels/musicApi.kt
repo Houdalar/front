@@ -43,7 +43,9 @@ interface musicApi
 
     @Multipart
     @POST("/user/music/addPlaylist")
-    fun addPlayListToUser(@Part cover: MultipartBody.Part, @Part name: MultipartBody.Part, @Part token: MultipartBody.Part ):Call<PlayList>
+    fun addPlayListToUser(@Part cover: MultipartBody.Part,
+                          @Part  name: MultipartBody.Part,
+                          @Part ("token")token:String):Call<PlayList>
     @POST("/user/music/getPlaylists")
     fun getPlaylists(@Body hashMap: HashMap<String, String>):Call<MutableList<PlayList>>
     @POST("/user/music/getPlaylistTracks")
@@ -51,8 +53,9 @@ interface musicApi
     @PUT("/user/music/addTrackToPlayList")
     fun addTrackToPlayList (@Body hashMap: HashMap<String, String>):Call<PlayList>
     @PUT("/user/music/deleteTrackfromPlaylist")
-    fun deleteTrackfromPlaylist (@Body user: User):Call<PlayList>
-
+    fun deleteTrackfromPlaylist (@Body hashMap: HashMap<String, String>):Call<Tracks>
+    @PUT("/user/music/deletePlayList")
+    fun deletePlayList (@Body hashMap: HashMap<String, String>):Call<PlayList>
 
     companion object {
 

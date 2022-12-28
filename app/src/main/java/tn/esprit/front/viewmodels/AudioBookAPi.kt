@@ -24,7 +24,7 @@ interface AudioBookAPi
     @GET("/media/getTopAudioBook")
     fun getTopAudioBook():Call<MutableList<AudioBook>>
     @PUT("/media/updateRatingAudioBook")
-    fun updateRatingAudioBook(@Body book :AudioBook ):Call<AudioBook>
+    fun updateRatingAudioBook(@Body hashMap: HashMap<String, Any> ):Call<AudioBook>
     @PUT("/media/updateListenedAudioBook")
     fun updateListenedAudioBook(@Body hashMap: HashMap<String, String>):Call<AudioBook>
 

@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.TextView.BufferType
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.*
@@ -47,6 +48,7 @@ class full_AudioBook : AppCompatActivity() {
     lateinit var barvector : ImageView
     var isfavorite = false
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var rate : ImageView
 
     
 
@@ -119,6 +121,34 @@ class full_AudioBook : AppCompatActivity() {
         Rating = findViewById(R.id.rating)
         Rating.text = intent.getFloatExtra("Rating", 0.0f).toString()
 
+        rate = findViewById(R.id.imageView14)
+        var id =intent.getStringExtra("bookId").toString()
+        println("id is $id")
+        val map2: HashMap<String, Any> = HashMap()
+        map2["id"] = id
+        //when the user click on the rate button it will open a dialog to rate the book one from 1 to 5
+        rate.setOnClickListener{
+
+        val builder = AlertDialog.Builder(this)
+            builder.setTitle("Rate this book")
+            val options = arrayOf("1", "2", "3", "4", "5")
+            builder.setItems(options) { dialog, which ->
+                map2["Rating"] = options[which].toFloat()
+                val service= AudioBookAPi.create()
+                service.updateRatingAudioBook(map2).enqueue(object : Callback<AudioBook> {
+                    override fun onResponse(call: Call<AudioBook>, response: Response<AudioBook>) {
+                        if (response.isSuccessful)
+                        {
+                            Toast.makeText(this@full_AudioBook, "You rated this book with ${options[which]}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<AudioBook>, t: Throwable) {
+                        Toast.makeText(this@full_AudioBook, "please check you internet connection", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+            builder.create().show()
+        }
 
 
         similar = findViewById(R.id.similarBooks)
@@ -143,6 +173,18 @@ class full_AudioBook : AppCompatActivity() {
 
 
         listen.setOnClickListener {
+            val service = AudioBookAPi.create()
+            val map: HashMap<String, String> = HashMap()
+            map["id"] = id
+            service.updateListenedAudioBook(map).enqueue(object : Callback<AudioBook> {
+                override fun onResponse(call: Call<AudioBook>, response: Response<AudioBook>) {
+                    if (response.isSuccessful) {
+                    }
+                }
+                override fun onFailure(call: Call<AudioBook>, t: Throwable) {
+                    Toast.makeText(this@full_AudioBook, "please check you internet connection", Toast.LENGTH_SHORT).show()
+                }
+            })
             intent = android.content.Intent(this, audioplayer::class.java).apply {
                 putExtra("url", intent.getStringExtra("bookUrl"))
                 putExtra("title", intent.getStringExtra("title"))

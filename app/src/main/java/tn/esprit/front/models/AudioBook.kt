@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AudioBook (
     @SerializedName("bookTitle")
-    var bookTitle: String,
+    var bookTitle: String? = null,
     @SerializedName("Author")
     var Author: String? = null,
     @SerializedName("cover")
@@ -21,6 +21,7 @@ data class AudioBook (
     var listened: Int? = null,
     @SerializedName("date")
     var date: String? = null,
+    @SerializedName("_id")
     var id : String? = null,
     var fav : Boolean? = null,
     @SerializedName("duration")

@@ -37,6 +37,7 @@ class song_detail : AppCompatActivity() {
     lateinit var playPrevious : ImageView
     lateinit var back : ImageView
     lateinit var fav : ImageView
+    var isfavorite : Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +62,23 @@ class song_detail : AppCompatActivity() {
         val token : String ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDc0MTg1MH0.GPsTqD7vbaBS65dsUJdfbPcU0Zdh4kmH4i8irCWgP5M"
         map["token"]=token
         sharedPreferences = this.getSharedPreferences("PREF_NAME", 0)
+        var favorite: MutableList<String>?
+        favorite = sharedPreferences.getStringSet("favoriteTracks", mutableSetOf())?.toMutableList()
         takeData()
+        if (favorite == null) {
+            favorite = mutableListOf()
+        }
+        if (favorite.contains(songName.text.toString()))
+        {
+            fav.setImageResource(R.drawable.ic_baseline_favorite_24)
+            isfavorite = true
+        }
+        else
+        {
+            fav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            isfavorite = false
+        }
+
         mediaPlayer = MediaPlayer()
         var url = intent.getStringExtra("songUrl")
         var id = intent.getStringExtra("songId")
@@ -73,27 +90,63 @@ class song_detail : AppCompatActivity() {
 
         val services = musicApi.create()
 
-        fav.setOnClickListener(){
-            services.addFavoritesTrack(map).enqueue(object : Callback<Tracks> {
-                override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
-                    if (response.isSuccessful) {
-                        fav.setImageResource(R.drawable.ic_baseline_favorite_24)
-                        Toast.makeText(this@song_detail, "Added to your favorites", Toast.LENGTH_SHORT).show()
+        fav.setOnClickListener() {
+            map["songname"] = songName.text.toString()
+            if (isfavorite == false) {
+                isfavorite = true
+                services.addFavoritesTrack(map).enqueue(object : Callback<Tracks> {
+                    override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                        if (response.isSuccessful) {
+                            fav.setImageResource(R.drawable.ic_baseline_favorite_24)
+                            Toast.makeText(
+                                this@song_detail,
+                                "Added to your favorites",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<Tracks>, t: Throwable) {
-                    Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
-                }
-            })
+                    override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                        Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+            else
+            {
+                isfavorite = false
+                services.removeFavoritesTrack(map).enqueue(object : Callback<Tracks> {
+                    override fun onResponse(call: Call<Tracks>, response: Response<Tracks>) {
+                        if (response.isSuccessful) {
+                            fav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                            Toast.makeText(
+                                this@song_detail,
+                                "Removed from your favorites",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Tracks>, t: Throwable) {
+                        Toast.makeText(this@song_detail, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                })
+
+            }
+
         }
 
-       back.setOnClickListener {
-          finish()
+        back.setOnClickListener {
+            //break all threads
+            mediaPlayer.stop()
+            mediaPlayer.release()
+            Thread.currentThread().interrupt()
+
+            finish()
 
         }
 
-      //updae the progress text
+        //updae the progress text
+
         thread(start = true) {
             while (true) {
                 if (mediaPlayer.isPlaying) {
@@ -110,6 +163,7 @@ class song_detail : AppCompatActivity() {
                     }
                     Thread.sleep(1000)
                 }
+
             }
         }
 
@@ -278,50 +332,51 @@ class song_detail : AppCompatActivity() {
 
 
 
-        private fun takeData()
-        {
-            val name = intent.getStringExtra("songName")
-            val artist = intent.getStringExtra("songArtist")
-            val cover = intent.getStringExtra("songCover")
-            val url = intent.getStringExtra("songUrl")
-            val id = intent.getStringExtra("songId")
+    private fun takeData()
+    {
+        val name = intent.getStringExtra("songName")
+        val artist = intent.getStringExtra("songArtist")
+        val cover = intent.getStringExtra("songCover")
+        val url = intent.getStringExtra("songUrl")
+        val id = intent.getStringExtra("songId")
 
 
-            songName.text = name
-            songArtist.text = artist
-            Glide.with(this).load(cover).into(songCover)
-            // mediaPlayer.setDataSource(url)
+        songName.text = name
+        songArtist.text = artist
+        Glide.with(this).load(cover).into(songCover)
+        // mediaPlayer.setDataSource(url)
+    }
+    // refresh the activity
+    override fun onResume() {
+        super.onResume()
+        if (mediaPlayer.isPlaying) {
+            play.setImageResource(R.drawable.ic_baseline_pause_24)
+            play.tag = "pause"
+        } else {
+            play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+            play.tag = "play"
         }
-  // refresh the activity
-        override fun onResume() {
-            super.onResume()
-            if (mediaPlayer.isPlaying) {
-                play.setImageResource(R.drawable.ic_baseline_pause_24)
-                play.tag = "pause"
-            } else {
-                play.setImageResource(R.drawable.ic_baseline_play_arrow_24)
-                play.tag = "play"
-            }
-        }
+    }
 
-   // createTimeLabel function to convert the time in milliseconds to minutes and seconds
-        fun createTimeLabel(time: Int): String {
-            var timeLabel = ""
-            val min = time / 1000 / 60
-            val sec = time / 1000 % 60
+    // createTimeLabel function to convert the time in milliseconds to minutes and seconds
+    fun createTimeLabel(time: Int): String {
+        var timeLabel = ""
+        val min = time / 1000 / 60
+        val sec = time / 1000 % 60
 
-            timeLabel = "$min:"
-            if (sec < 10) timeLabel += "0"
-            timeLabel += sec
+        timeLabel = "$min:"
+        if (sec < 10) timeLabel += "0"
+        timeLabel += sec
 
-            return timeLabel
-        }
+        return timeLabel
+    }
 
-        override fun onDestroy() {
-            super.onDestroy()
-            mediaPlayer.stop()
-            mediaPlayer.release()
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        //stop all the threads when the activity is destroyed
+        Thread.currentThread().interrupt()
+        mediaPlayer.release()
+    }
 
     fun playAudio() {
         val dur = mediaPlayer.duration
@@ -355,7 +410,7 @@ class song_detail : AppCompatActivity() {
 
                 }})
         }
-       Thread(Runnable {
+        Thread(Runnable {
             while (mediaPlayer != null) {
                 try {
                     progressbar.value = mediaPlayer.currentPosition.toFloat()
@@ -375,10 +430,4 @@ class song_detail : AppCompatActivity() {
     }
 
 
-    }
-
-
-
-
-
-
+}

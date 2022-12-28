@@ -13,6 +13,11 @@ class PlayListViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView)
 
     init {
         playlistCover = itemView.findViewById<ImageView>(R.id.Play_list_cover)
+        playlistCover.scaleType = ImageView.ScaleType.CENTER_CROP
+
+       //set the image to the center of the card
+
+
        // play = itemView.findViewById<ImageView>(R.id.play_stop_playlist)
     }
 

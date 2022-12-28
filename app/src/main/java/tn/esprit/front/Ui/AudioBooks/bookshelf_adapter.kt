@@ -66,7 +66,9 @@ class bookshelf_adapter (val books: MutableList<AudioBook>) : RecyclerView.Adapt
             builder.setPositiveButton("Yes") { dialog, which ->
                 val service = AudioBookAPi.create()
                 val map : HashMap<String, String> = HashMap()
-                map.put("title", title)
+                if (title != null) {
+                    map.put("title", title)
+                }
                 map["token"]="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGI5MWUxNjc1ZTE2MTNlOTBlMTYyZiIsImlhdCI6MTY3MDgzMzAxNH0.xtR83b0vClblof3bw4vQ7xu29mcAJNZl8IyHCWpSxG8"
                 service.removeFavoritesbooks(map).enqueue(object : Callback<AudioBook> {
                     override fun onResponse(call: Call<AudioBook>, response: Response<AudioBook>) {

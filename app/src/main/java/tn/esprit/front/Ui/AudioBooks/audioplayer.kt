@@ -27,6 +27,7 @@ class audioplayer : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audioplayer)
+        supportActionBar?.hide()
 
         bookTitle = findViewById(R.id.played_now_book_title)
         Author = findViewById(R.id.played_now_book_author)
@@ -41,7 +42,10 @@ class audioplayer : AppCompatActivity() {
         mediaPlayer = MediaPlayer()
         var url = intent.getStringExtra("url")
         mediaPlayer.setDataSource(url)
+        mediaPlayer.prepare()
         progressbar.valueFrom = 0f
+
+
 
         play.setOnClickListener {
             playAudio()
@@ -110,7 +114,6 @@ class audioplayer : AppCompatActivity() {
             mediaPlayer.start()
             play.setImageResource(R.drawable.ic_baseline_pause_24)
             isPlaying = true
-            //progressbar.valueFrom = mediaPlayer.currentPosition.toFloat()
 
             progressbar.valueTo = mediaPlayer.duration.toFloat()
 
@@ -130,6 +133,7 @@ class audioplayer : AppCompatActivity() {
         Thread(Runnable {
             while (mediaPlayer != null) {
                 try {
+                    progressbar.valueTo = mediaPlayer.duration.toFloat()
                     progressbar.value = mediaPlayer.currentPosition.toFloat()
                     //create a thred to update the progress text view
                     var msg = Message()
