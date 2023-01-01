@@ -7,6 +7,7 @@ import android.os.Bundle
 
 import android.util.Patterns
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -32,7 +33,7 @@ class SignUp_Activity : AppCompatActivity() {
     lateinit var errorName: TextInputLayout
     lateinit var errorEmail: TextInputLayout
     lateinit var errorPassword: TextInputLayout
-    lateinit var backToLoginButton : Button
+    lateinit var backToLoginButton : TextView
 
 
 

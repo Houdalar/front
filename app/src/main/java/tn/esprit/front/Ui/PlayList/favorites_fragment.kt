@@ -64,11 +64,6 @@ class fav : Fragment() {
                     editor.putStringSet("favoriteTracks", set)
                     editor.commit()
                     println(set)
-                      //  editor.putStringSet("favoriteTracks", tracksList.map { it.name }.toSet())
-
-
-                   // editor.putString("favorites", tracks.toString())
-
                     recylcersongAdapter = favouritsong_adapter(tracks)
                     recylcersong.adapter = recylcersongAdapter
                     recylcersongAdapter.notifyDataSetChanged()

@@ -2,11 +2,14 @@ package tn.esprit.front.Ui.PlayList
 
 
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -29,6 +32,7 @@ class Full_PlayList_Activity : AppCompatActivity() {
     lateinit var playlistcover: ImageView
     lateinit var back: ImageView
     lateinit var sharedPreferences: SharedPreferences
+    lateinit var playlistcard: ImageView
 
     var tracks: ArrayList<Tracks> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +42,13 @@ class Full_PlayList_Activity : AppCompatActivity() {
         playlistcover = findViewById(R.id.imageView19)
         back = findViewById(R.id.imageView22)
         title = findViewById(R.id.playname)
+
+        playlistcard = findViewById(R.id.imageView18)
+        // set the color of the vector drawable
+
+
+
+
 
         back.setOnClickListener {
             finish()
@@ -51,7 +62,17 @@ class Full_PlayList_Activity : AppCompatActivity() {
         var url = intent.getStringExtra("songUrl")
         val cover = intent.getStringExtra("playlistcover")
         Glide.with(this@Full_PlayList_Activity).load(cover).into(playlistcover)
+        // get th
 
+//        val bitmap = (playlistcover.drawable as BitmapDrawable).bitmap
+//        val palette = Palette.from(bitmap).generate()
+//        val dominantColor = palette.getDominantColor(Color.WHITE)
+//        val redValue = Color.red(dominantColor)
+//        val greenValue = Color.green(dominantColor)
+//        val blueValue = Color.blue(dominantColor)
+//        // set the color of the vector drawable
+//        val color = Color.argb(255, redValue, greenValue, blueValue)
+//        playlistcard.setColorFilter(color)
         var services = musicApi.create()
         val map = HashMap<String, String>()
         var id = intent.getStringExtra("playlistid")

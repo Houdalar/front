@@ -1,6 +1,6 @@
 package tn.esprit.front.Ui.PlayList
 
-import android.content.Intent
+
 import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.*
@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+
 import com.bumptech.glide.Glide
 import com.google.android.material.slider.Slider
 import retrofit2.Call
@@ -19,7 +19,7 @@ import tn.esprit.front.R
 import tn.esprit.front.models.Tracks
 import tn.esprit.front.viewmodels.musicApi
 import kotlin.concurrent.thread
-import kotlin.math.log
+
 
 
 class song_detail : AppCompatActivity() {
@@ -37,6 +37,7 @@ class song_detail : AppCompatActivity() {
     lateinit var playPrevious : ImageView
     lateinit var back : ImageView
     lateinit var fav : ImageView
+    lateinit var add : ImageView
     var isfavorite : Boolean = false
 
 
@@ -52,8 +53,10 @@ class song_detail : AppCompatActivity() {
         progress = findViewById(R.id.progress_time)
         progressbar = findViewById(R.id.slider)
         back = findViewById(R.id.back_to_music_home)
+        add = findViewById(R.id.imageView)
         fav = findViewById(R.id.imageView4)
         fav.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+
 
         playNext = findViewById(R.id.imageView8)
         playPrevious = findViewById(R.id.imageView9)
@@ -326,6 +329,8 @@ class song_detail : AppCompatActivity() {
 
 
         play.setOnClickListener { playAudio() }
+
+
     }
 
 
@@ -428,6 +433,7 @@ class song_detail : AppCompatActivity() {
         // update the progress text view in minutes and seconds
 
     }
+
 
 
 }

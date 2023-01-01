@@ -32,7 +32,7 @@ class Login_Activity : AppCompatActivity() {
 
     lateinit var preference : SharedPreferences
 
-    lateinit var backToSignUpButton : Button
+    lateinit var backToSignUpButton : TextView
     lateinit var loginButton: Button
 
     var services = ApiInterface.create()
@@ -50,9 +50,9 @@ class Login_Activity : AppCompatActivity() {
         password = findViewById(R.id.txtPassword)
         passwordError = findViewById(R.id.txtLayoutPassword)
 
-        loginButton = findViewById(R.id.login_button)
+        loginButton = findViewById(R.id.btnLogin)
         backToSignUpButton = findViewById(R.id.back_to_sign_up_button)
-        rememberMe = findViewById(R.id.Remember_Me)
+        rememberMe = findViewById(R.id.checkBox)
 
         forgotYourPassword = findViewById(R.id.forgot_password)
 

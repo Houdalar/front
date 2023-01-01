@@ -1,161 +1,370 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".Ui.Login_Activity">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/imageView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background"
-        android:adjustViewBounds="true"
-         />
+        tools:context=".Ui.Login_Activity"
+        android:background="@drawable/logingradient"
+    >
+
+    <ImageView
+        android:id="@+id/Logo"
+        android:layout_width="121dp"
+        android:layout_height="112dp"
+        android:src="@drawable/asset_12"
+        android:translationZ="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.21" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:src="@drawable/logingradient"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
-        android:id="@+id/sign_in_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign in to Bear"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="50dp"
-        android:textColor="@color/white"
-        android:textSize="30dp" />
+        android:text="Welcome Back"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/Logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="154dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="110dp"
-        android:src="@drawable/ic_baseline_more_horiz_24" />
 
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="250dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/login_bar">
+        android:layout_marginTop="230dp"
+        android:background="@drawable/login_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="16dp">
 
-        <TextView
-            android:id="@+id/welcome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="25dp"
-            android:text="Welcome Back"
-            android:textColor="@color/white"
-            android:textSize="30dp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/How_was_your_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="63dp"
-            android:text="How was your day?"
-            android:textColor="@color/white"
-            android:textSize="20dp" />
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="Login"
+                android:textAlignment="center"
+                android:textColor="@color/darkPink"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/forgot_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
-            android:layout_marginTop="290dp"
-            android:text="Forgot your password?"
-            android:textColor="@color/white" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtLayoutEmail"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="130dp"
-            app:counterEnabled="true"
-            app:counterMaxLength="30"
-            android:gravity="center"
-            android:hint="mail address"
-            app:errorEnabled="true">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="40dp"
+                app:errorEnabled="true"
+                app:boxStrokeColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtEmail"/>
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/login_text"
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/edittext"
+                android:elevation="8dp"
+                android:hint="  Email"
                 android:inputType="textEmailAddress"
+                android:padding="15dp"
+                android:shadowColor="@color/shadowgray"
+                android:textColor="#000000"
+                android:textColorHint="@color/shadowgray"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                tools:layout_editor_absoluteX="30dp" />
 
-                />
-
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/login_button"
-            android:layout_width="218dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="340dp"
-            android:background="@drawable/login_button"
-            android:gravity="center"
-            android:text="Sign in" />
-        <Button
-            android:id="@+id/back_to_sign_up_button"
-            android:layout_width="218dp"
-            android:layout_height="54dp"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="420dp"
-            android:background="@drawable/login_button"
-            android:gravity="center"
-            android:text="Back to sign up" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtLayoutPassword"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="215dp"
-            android:hint="Password"
-            app:errorEnabled="true"
-            android:gravity="center">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtLayoutPassword"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                app:errorEnabled="true"
+                android:layout_marginEnd="40dp"
+                app:boxStrokeColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+                tools:layout_editor_absoluteX="44dp" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtPassword"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/login_text"
-                android:inputType="textPassword" />
+                android:layout_height="60dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/edittext"
+                android:elevation="8dp"
+                android:hint="  Password"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:shadowColor="@color/shadowgray"
+                android:textColor="#000000"
+                android:textColorHint="@color/shadowgray"
+                app:layout_constraintTop_toBottomOf="@+id/txtLayoutEmail"
+                tools:layout_editor_absoluteX="0dp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:buttonTint="@color/darkPink"
+                android:text="Remember Me"
+                android:textColor="@color/darkPink"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLayoutPassword" />
+            <TextView
+                android:id="@+id/forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:text="@string/forgot_password"
+                android:textColor="@color/shadowgray"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLayoutPassword" />
 
-        <CheckBox
-            android:id="@+id/Remember_Me"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="278dp"
-            android:shadowColor="@color/white"
-            android:text="Remember Me"
-            android:textColor="@color/white"
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button"
+                android:elevation="10dp"
+                android:layout_marginStart="70dp"
+                android:layout_marginEnd="70dp"
+                android:shadowColor="@color/shadowgray"
+                android:text="Login"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
-            />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/back_to_sign_up_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="92dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                android:text="@string/dont_have_an_account"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+                app:layout_constraintVertical_bias="0.2" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="186dp"
-        android:layout_height="180dp"
-        android:src="@drawable/removal_354"
-        android:foregroundGravity="center"
-        android:layout_marginTop="110dp"
-        android:layout_marginStart="100dp"/>
 
-</RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+    <!--<RelativeLayout-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:src="@drawable/background"-->
+<!--        android:adjustViewBounds="true"-->
+<!--         />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/sign_in_label"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Sign in to Bear"-->
+<!--        android:layout_marginStart="100dp"-->
+<!--        android:layout_marginTop="50dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="30dp" />-->
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView3"-->
+<!--        android:layout_width="154dp"-->
+<!--        android:layout_height="63dp"-->
+<!--        android:layout_marginStart="110dp"-->
+<!--        android:src="@drawable/ic_baseline_more_horiz_24" />-->
+
+
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/relativeLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginTop="250dp"-->
+<!--        android:adjustViewBounds="true"-->
+<!--        android:background="@drawable/login_bar">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/welcome"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="60dp"-->
+<!--            android:layout_marginTop="25dp"-->
+<!--            android:text="Welcome Back"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="30dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/How_was_your_day"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="60dp"-->
+<!--            android:layout_marginTop="63dp"-->
+<!--            android:text="How was your day?"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20dp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/forgot_password"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="200dp"-->
+<!--            android:layout_marginTop="290dp"-->
+<!--            android:text="Forgot your password?"-->
+<!--            android:textColor="@color/white" />-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/txtLayoutEmail"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="60dp"-->
+<!--            android:layout_marginTop="130dp"-->
+<!--            app:counterEnabled="true"-->
+<!--            app:counterMaxLength="30"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="mail address"-->
+<!--            app:errorEnabled="true">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/txtEmail"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/login_text"-->
+<!--                android:inputType="textEmailAddress"-->
+
+<!--                />-->
+
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/login_button"-->
+<!--            android:layout_width="218dp"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:layout_marginStart="100dp"-->
+<!--            android:layout_marginTop="340dp"-->
+<!--            android:background="@drawable/login_button"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Sign in" />-->
+<!--        <Button-->
+<!--            android:id="@+id/back_to_sign_up_button"-->
+<!--            android:layout_width="218dp"-->
+<!--            android:layout_height="54dp"-->
+<!--            android:layout_marginStart="100dp"-->
+<!--            android:layout_marginTop="420dp"-->
+<!--            android:background="@drawable/login_button"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Back to sign up" />-->
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:id="@+id/txtLayoutPassword"-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="60dp"-->
+<!--            android:layout_marginTop="215dp"-->
+<!--            android:hint="Password"-->
+<!--            app:errorEnabled="true"-->
+<!--            android:gravity="center">-->
+
+<!--            <com.google.android.material.textfield.TextInputEditText-->
+<!--                android:id="@+id/txtPassword"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/login_text"-->
+<!--                android:inputType="textPassword" />-->
+
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+<!--        <CheckBox-->
+<!--            android:id="@+id/Remember_Me"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="60dp"-->
+<!--            android:layout_marginTop="278dp"-->
+<!--            android:shadowColor="@color/white"-->
+<!--            android:text="Remember Me"-->
+<!--            android:textColor="@color/white"-->
+
+<!--            />-->
+<!--    </RelativeLayout>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView5"-->
+<!--        android:layout_width="186dp"-->
+<!--        android:layout_height="180dp"-->
+<!--        android:src="@drawable/removal_354"-->
+<!--        android:foregroundGravity="center"-->
+<!--        android:layout_marginTop="110dp"-->
+<!--        android:layout_marginStart="100dp"/>-->
+
+<!--</RelativeLayout>-->

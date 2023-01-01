@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
@@ -18,7 +19,7 @@ import tn.esprit.front.models.User
 import tn.esprit.front.viewmodels.ApiInterface
 
 class Account_verification_Activity : AppCompatActivity() {
-    lateinit var resendEmail: Button
+    lateinit var resendEmail: TextView
     lateinit var verifyButton: Button
     lateinit var code: TextInputEditText
     lateinit var codeError: TextInputLayout
