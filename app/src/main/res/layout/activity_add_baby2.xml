@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_splash"
     android:id="@+id/scrollViewAddBaby"
-    tools:context=".Views.AddBabyActivity">
+    tools:context=".Views.Activities.AddBabyActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"

@@ -12,29 +12,25 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_drawer.*
-import org.json.JSONArray
-import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
 import tn.esprit.front.Views.*
+import tn.esprit.front.Views.Activities.AddBabyActivity
+import tn.esprit.front.Views.Activities.AudioBooks.book_home_page
 import tn.esprit.front.Views.Activities.Home.BabyList.BabyAdapter
-import tn.esprit.front.Views.Activities.Profile.ProfileActivity
+import tn.esprit.front.Views.Activities.PlayList.music_home_page
 import tn.esprit.front.Views.Activities.Signin.Login_Activity
-
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
-//import tn.esprit.front.Views.Home.BabyList.BabyAdapter
 import tn.esprit.front.models.Baby
-import tn.esprit.front.viewmodels.ApiInterface
-import tn.esprit.front.viewmodels.BabyAPIInterface
+import tn.esprit.front.viewmodels.BabyViewModel
 
 
 class DrawerActivity : AppCompatActivity() {
-    var services = BabyAPIInterface.create()
+    var services = BabyViewModel.create()
 
     lateinit var recyclerBaby: RecyclerView
     lateinit var recyclerBabyAdapter: BabyAdapter
@@ -67,26 +63,19 @@ class DrawerActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val babies = response.body() as MutableList<Baby>
                     babylist.addAll(babies)
-
                     recyclerBabyAdapter.notifyDataSetChanged()
+
                     Log.e("babies : ",babies.toString())
                     println(response.body())
-                    Toast.makeText(
-                        this@DrawerActivity,
-                        "List displayed ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-
                 } else {
-                    Toast.makeText(this@DrawerActivity, "Error", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@DrawerActivity, "Baby List can't be displayed", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
 
             override fun onFailure(call: Call<MutableList<Baby>>, t: Throwable) {
-                /*Toast.makeText(this@DrawerActivity, "failed drawer", Toast.LENGTH_SHORT)
-                    .show()*/
+                Toast.makeText(this@DrawerActivity, "Failed to load", Toast.LENGTH_SHORT)
+                    .show()
             }
         })
         recyclerBabyAdapter= BabyAdapter(babylist)
@@ -102,16 +91,12 @@ class DrawerActivity : AppCompatActivity() {
                     val intent= Intent(this, DrawerActivity::class.java)
                     startActivity(intent)
                 }
-                R.id.nav_babies -> {
-                    val intent= Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
-                }
                 R.id.nav_music -> {
-                    val intent= Intent(this, MusicActivity::class.java)
+                    val intent= Intent(this, music_home_page::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_Audiobooks -> {
-                    val intent= Intent(this, AudiobooksActivity::class.java)
+                    val intent= Intent(this, book_home_page::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_settings -> {
@@ -157,7 +142,7 @@ class DrawerActivity : AppCompatActivity() {
             }
             else->{
                 //If drawer is already in closed condition then go back
-                super.onBackPressed()
+                super.getOnBackPressedDispatcher().onBackPressed()
             }}
     }
 

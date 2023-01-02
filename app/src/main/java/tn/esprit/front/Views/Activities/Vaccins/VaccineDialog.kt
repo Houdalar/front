@@ -13,14 +13,9 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import tn.esprit.front.databinding.HeightDialogBinding
-import tn.esprit.front.databinding.VaccinItemBinding
 import tn.esprit.front.databinding.VaccineDialogBinding
-import tn.esprit.front.models.Height
 import tn.esprit.front.models.Vaccine
-import tn.esprit.front.viewmodels.ApiInterface
-import tn.esprit.front.viewmodels.BabyAPIInterface
-import java.text.SimpleDateFormat
+import tn.esprit.front.viewmodels.BabyViewModel
 
 class VaccineDialog(
     val onSubmitClickListener: (String) -> Unit,
@@ -29,7 +24,7 @@ class VaccineDialog(
 ): DialogFragment() {
     private lateinit var binding : VaccineDialogBinding
 
-    val services = BabyAPIInterface.create()
+    val services = BabyViewModel.create()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = VaccineDialogBinding.inflate(LayoutInflater.from(context))

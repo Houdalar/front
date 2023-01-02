@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 
 import android.util.Patterns
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
@@ -19,12 +21,12 @@ import tn.esprit.front.R
 import tn.esprit.front.Views.Activities.Signin.Login_Activity
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.models.User
-import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.UserViewModel
 
 
 class SignUp_Activity : AppCompatActivity() {
 
-    var services = ApiInterface.create()
+    var services = UserViewModel.create()
     lateinit var preference : SharedPreferences
 
     lateinit var name: TextInputEditText
@@ -34,7 +36,7 @@ class SignUp_Activity : AppCompatActivity() {
     lateinit var errorName: TextInputLayout
     lateinit var errorEmail: TextInputLayout
     lateinit var errorPassword: TextInputLayout
-    lateinit var backToLoginButton : Button
+    lateinit var backToLoginButton : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +76,7 @@ class SignUp_Activity : AppCompatActivity() {
             services.signup(user).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
+                        Log.e("response", response.body().toString())
                         Toast.makeText(
                             this@SignUp_Activity,
                             "User added successfully",

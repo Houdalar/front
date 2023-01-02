@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/viewPagerFragment"
-        android:name="tn.esprit.front.Views.Fragments.MainViewPager.ViewPagerFragment"
+        android:name="tn.esprit.front.Views.Fragments.OnboardingScreen.OnBoardingScreenFragment"
         android:label="fragment_view_pager"
         tools:layout="@layout/fragment_view_pager" >
         <action

@@ -4,6 +4,7 @@
         android:type="linear"
         android:angle="90"
         android:startColor="@color/grad_start_color"
+        android:centerColor="@color/grad_center_color"
         android:endColor="@color/grad_end_color"
         />
 </shape>

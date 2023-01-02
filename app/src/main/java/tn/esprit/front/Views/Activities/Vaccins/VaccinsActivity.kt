@@ -15,10 +15,10 @@ import tn.esprit.front.R
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Vaccine
-import tn.esprit.front.viewmodels.BabyAPIInterface
+import tn.esprit.front.viewmodels.BabyViewModel
 
 class VaccinsActivity : AppCompatActivity() {
-    var services = BabyAPIInterface.create()
+    var services = BabyViewModel.create()
 
     lateinit var vaccineRecyclerView: RecyclerView
     lateinit var vaccineAdapter: VaccineAdapter

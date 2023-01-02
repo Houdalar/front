@@ -17,10 +17,10 @@ import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.Views.Activities.Vaccins.ConsultationAdapter
 import tn.esprit.front.Views.Activities.Vaccins.ConsultationDialog
 import tn.esprit.front.models.Consultation
-import tn.esprit.front.viewmodels.BabyAPIInterface
+import tn.esprit.front.viewmodels.BabyViewModel
 
 class ConsultationActivity : AppCompatActivity() {
-    var services = BabyAPIInterface.create()
+    var services = BabyViewModel.create()
 
     lateinit var consultationRecyclerView: RecyclerView
     lateinit var consultationAdapter: ConsultationAdapter

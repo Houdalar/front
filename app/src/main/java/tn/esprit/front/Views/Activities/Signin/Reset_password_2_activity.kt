@@ -1,8 +1,6 @@
 package tn.esprit.front.Views.Activities.Signin
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -14,13 +12,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
 import tn.esprit.front.models.User
-import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.UserViewModel
+
 class Reset_password_2_activity : AppCompatActivity()
 {
     lateinit var verify: Button
     lateinit var code: TextInputEditText
     lateinit var codeError: TextInputLayout
-    var services = ApiInterface.create()
+    var services = UserViewModel.create()
 
 
     override fun onCreate(savedInstanceState: Bundle?)

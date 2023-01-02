@@ -12,5 +12,6 @@ data class Baby(
     @SerializedName("parent")
     var parent:String?=null,
     var token:String?=null,
-
+    @SerializedName("gender")
+    var gender:String?=null,
     )

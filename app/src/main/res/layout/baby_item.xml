@@ -26,6 +26,7 @@
             android:layout_height="130dp"
             android:src="@drawable/ines"
             android:background="@color/transparent"
+            android:scaleType="centerCrop"
             />
 
         <TextView
@@ -36,6 +37,7 @@
             android:text="baby name"
             android:gravity="center"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_gravity="center"/>
 
 

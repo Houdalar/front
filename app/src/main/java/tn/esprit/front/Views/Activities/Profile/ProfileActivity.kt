@@ -5,13 +5,9 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import tn.esprit.front.R
 import tn.esprit.front.Views.Activities.Consultation.ConsultationActivity
 import tn.esprit.front.Views.Activities.Height.HeightActivity
@@ -19,8 +15,6 @@ import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.Views.Activities.Vaccins.VaccinsActivity
 import tn.esprit.front.Views.Activities.Weight.WeightActivity
-import tn.esprit.front.models.Baby
-import tn.esprit.front.viewmodels.ApiInterface
 
 class ProfileActivity : AppCompatActivity() {
     lateinit var babyPic : ImageView
@@ -45,9 +39,10 @@ class ProfileActivity : AppCompatActivity() {
         babyPic=findViewById(R.id.profilePic)
         val name : String = intent.getStringExtra("BABYNAME").toString()
         val picture:String=intent.getStringExtra("BABYPIC").toString()
+
         mSharedPreferences=getSharedPreferences(PREF_NAME, MODE_PRIVATE)
 
-        Picasso.with(this).load(picture).into(babyPic)
+        Glide.with(this).load(picture).into(babyPic)
 
         heightBtn.setOnClickListener {
             val intent=Intent(this,HeightActivity::class.java)
@@ -86,4 +81,5 @@ class ProfileActivity : AppCompatActivity() {
         }
         bbName.text = intent.getStringExtra("BABYNAME").toString()
         bbBirthday.text = intent.getStringExtra("DATE").toString()
+        bbGender.text=intent.getStringExtra("GENDER").toString()
 }}

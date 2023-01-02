@@ -2,6 +2,7 @@ package tn.esprit.front.util
 
 import android.os.Looper
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okio.BufferedSink
 import java.io.File
@@ -27,7 +28,7 @@ class UploadRequestBody (
 
     }
 
-    override fun contentType()= MediaType.parse("$contentType/*")
+    override fun contentType()= "$contentType/*".toMediaTypeOrNull()
 
     override fun contentLength()= file.length()
 

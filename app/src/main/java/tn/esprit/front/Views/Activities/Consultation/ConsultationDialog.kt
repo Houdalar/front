@@ -17,8 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.databinding.ConsultationDialogBinding
 import tn.esprit.front.models.Consultation
-import tn.esprit.front.viewmodels.BabyAPIInterface
-import java.text.SimpleDateFormat
+import tn.esprit.front.viewmodels.BabyViewModel
 
 class ConsultationDialog(
     val onSubmitClickListener: (String) -> Unit,
@@ -27,7 +26,7 @@ class ConsultationDialog(
 ) : DialogFragment() {
     private lateinit var binding: ConsultationDialogBinding
 
-    val services = BabyAPIInterface.create()
+    val services = BabyViewModel.create()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ConsultationDialogBinding.inflate(LayoutInflater.from(context))

@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
 import tn.esprit.front.models.User
-import tn.esprit.front.viewmodels.ApiInterface
+import tn.esprit.front.viewmodels.UserViewModel
 
 class Reset_password_1_Activity : AppCompatActivity()
 {
@@ -22,7 +22,7 @@ class Reset_password_1_Activity : AppCompatActivity()
     lateinit var email: TextInputEditText
     lateinit var emailError: TextInputLayout
 
-    var services = ApiInterface.create()
+    var services = UserViewModel.create()
     lateinit var preference: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -32,7 +32,7 @@ class Reset_password_1_Activity : AppCompatActivity()
 
         sendCode = findViewById(R.id.send_code_button)
 
-        email = findViewById(R.id.EmailText)
+        email = findViewById(R.id.code)
         emailError = findViewById(R.id.EmailTextInputLayout)
 
         preference=getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -68,7 +68,7 @@ class Reset_password_1_Activity : AppCompatActivity()
                     }
                     else
                     {
-                        emailError.error = "user don't exist"
+                        emailError.error = "user doesn't exist"
                         valid = false
                     }
                 }

@@ -1,33 +1,26 @@
 package tn.esprit.front.Views.Activities.Height
 
-import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.add_height_item.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import tn.esprit.front.R
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
-import tn.esprit.front.models.Baby
 import tn.esprit.front.models.Height
-import tn.esprit.front.viewmodels.ApiInterface
-import tn.esprit.front.viewmodels.BabyAPIInterface
+import tn.esprit.front.viewmodels.BabyViewModel
 
 
 class HeightActivity : AppCompatActivity() {
 
-    var services = BabyAPIInterface.create()
+    var services = BabyViewModel.create()
 
     lateinit var heightRecyclerView:RecyclerView
     lateinit var heightAdapter: HeightAdapter

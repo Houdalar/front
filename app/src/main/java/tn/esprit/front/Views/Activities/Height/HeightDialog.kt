@@ -2,8 +2,6 @@ package tn.esprit.front.Views.Activities.Height
 
 
 import android.app.Dialog
-import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -11,17 +9,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import tn.esprit.front.Views.Activities.Signin.PREF_NAME
-import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.databinding.HeightDialogBinding
 import tn.esprit.front.models.Height
-import tn.esprit.front.viewmodels.ApiInterface
-import tn.esprit.front.viewmodels.BabyAPIInterface
+import tn.esprit.front.viewmodels.BabyViewModel
 
 
 class HeightDialog(
@@ -31,7 +25,7 @@ class HeightDialog(
 ):DialogFragment() {
     private lateinit var binding : HeightDialogBinding
 
-    val services = BabyAPIInterface.create()
+    val services = BabyViewModel.create()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = HeightDialogBinding.inflate(LayoutInflater.from(context))

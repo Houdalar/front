@@ -18,12 +18,11 @@ import tn.esprit.front.Views.Activities.Height.WeightDialog
 import tn.esprit.front.Views.Activities.Signin.PREF_NAME
 import tn.esprit.front.Views.Activities.Signin.TOKEN
 import tn.esprit.front.models.Weight
-import tn.esprit.front.viewmodels.ApiInterface
-import tn.esprit.front.viewmodels.BabyAPIInterface
+import tn.esprit.front.viewmodels.BabyViewModel
 
 class WeightActivity : AppCompatActivity() {
 
-    var services = BabyAPIInterface.create()
+    var services = BabyViewModel.create()
 
     lateinit var weightRecyclerView:RecyclerView
     lateinit var weightAdapter: WeightAdapter
